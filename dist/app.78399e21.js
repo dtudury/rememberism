@@ -374,6 +374,7 @@ function (_HTMLElement) {
     value: function connectedCallback() {
       var _this2 = this;
 
+      console.log(Object.keys(window));
       var children = [];
       setInterval(function () {
         _this2.style.cssText = "\n        height: 100px;\n        overflow: auto;\n        display: flex;\n        flex-direction: column-reverse;\n      ";
