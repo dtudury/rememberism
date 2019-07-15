@@ -31,7 +31,4 @@ export default class CustomizedTest extends HTMLElement {
       setChildren(this.shadow, children)
     }, 1000)
   }
-  static get NAME () {
-    return 'sight-words-element'
-  }
 }
