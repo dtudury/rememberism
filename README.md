@@ -1,2 +1,2 @@
-# sightwords
-display a random word from a list
+# rememberism
+flash card app
