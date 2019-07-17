@@ -1,0 +1,37 @@
+{
+  "activity": {
+    "sight-words": {
+      "progress": {
+        "0": {
+          "ready": 0,
+          "streak": []
+        },
+        "1": {
+          "ready": 0,
+          "streak": []
+        },
+        "2": {
+          "ready": 0,
+          "streak": []
+        }
+      }
+    }
+  },
+  "catalog": {
+    "sight-words": {
+      "thumbnail": "",
+      "header": "Sight Words",
+      "subhead": "The Dolch Sight Words list",
+      "media": "",
+      "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
+      "category": "ENGLISH",
+      "tags": [
+        "PRE-K",
+        "KINDERGARTEN",
+        "1ST-GRADE"
+      ],
+      "data": "./sets/sight-words/data.json",
+      "component": "./sets/sight-words/component.js"
+    }
+  }
+}

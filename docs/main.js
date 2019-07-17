@@ -2,7 +2,7 @@
 import { h, watchSetChildren } from '//unpkg.com/horseless/dist/horseless.esm.js'
 
 async function init () {
-  const config = await (await fetch('./config.json')).json()
+  const config = await (await fetch('./catalog.json')).json()
   console.log(config)
 }
 init()
