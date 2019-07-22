@@ -1,6 +1,8 @@
 {
     "name": "Rememberism",
     "short_name": "Rememberism",
+    "description": "A simple flash card application with an emphasis on UI",
+    "start_url": "/index.html",
     "icons": [
         {
             "src": "/site-config/android-chrome-192x192.png",
@@ -13,7 +15,8 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "categories": ["education", "productivity", "utilities"],
+    "theme_color": "white",
+    "background_color": "white",
     "display": "standalone"
 }

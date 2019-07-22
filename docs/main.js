@@ -1,11 +1,31 @@
 /* global fetch */
 import { h, watchSetChildren } from '//unpkg.com/horseless/dist/horseless.esm.js'
+import model from './model.js'
+import './views/course-card.js'
+
+navigator.serviceWorker.register('/sw.js').then(reg => {
+  console.log('Service worker registered.', reg)
+})
 
 async function init () {
   const config = await (await fetch('./catalog.json')).json()
   console.log(config)
+  model.catalog = config.catalog
+  /*
+  setInterval(() => {
+    model.catalog['Kindergarten Sight Words'].header = '' + Math.random()
+  }, 500)
+  */
 }
 init()
+
+const catalogMap = new Map()
+export function memoize (map, value, f) {
+  if (!map.has(value)) {
+    map.set(value, f(value))
+  }
+  return map.get(value)
+}
 
 watchSetChildren(document.body, h`
 <header>
@@ -18,9 +38,13 @@ watchSetChildren(document.body, h`
 </header>
 
 <section>
-  <h2>
-    Next Card
-  </h2>
+  ${() => Object.keys(model.catalog || {}).map(header => memoize(catalogMap, model.catalog[header], course => h`<article class="course">
+    <header>
+      <h1>${() => course.header}</h1>
+      <h2>${() => course.subhead}</h2>
+    </header>
+    <section class="supporting">${() => course.supporting}</section>
+  </article>`))}
 
   <article class="flashcard">
     <header>
