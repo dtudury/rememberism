@@ -19,7 +19,7 @@ watchSetChildren(document.body, h`
 
 <nav class="sidenav">
   <a class=${maybeSelected} href=${ENROLLED}>enrolled</a>
-  <a class=${maybeSelected} href=${UNENROLLED}>catalog</a>
+  <a class=${maybeSelected} href=${UNENROLLED}>unenrolled</a>
   <a class=${maybeSelected} href=${ALL}>all courses</a>
 </nav>
 
@@ -36,12 +36,6 @@ ${() => Object.keys(model.catalog || {}).map(header => memoizeCourse(model.catal
 `))}
   </section>
 </main>
-
-<aside>
-  <p>
-    Author info
-  </p>
-</aside>
 
 <footer>
   Copyright Info
