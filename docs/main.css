@@ -1,0 +1,92 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: Helvetica, sans-serif;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 256px 1fr 48px;
+  grid-template-rows: 72px 1fr 24px;
+}
+
+header.topnav {
+  grid-column: 1/4;
+  grid-row: 1/2;
+  z-index: 1;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+nav.sidenav {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+
+nav.sidenav a {
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 4px;
+  color: dimgray;
+}
+
+nav.sidenav a.selected {
+  background-color: whitesmoke;
+}
+
+main {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  overflow: auto;
+  background-color: whitesmoke;
+}
+
+aside {
+  grid-column: 3/4;
+  grid-row: 2/3;
+}
+
+footer {
+  grid-column: 1/4;
+  grid-row: 3/4;
+  padding: 4px;
+  font-size: 14px;
+  color: dimgray;
+  z-index: 1;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+article.course {
+  background-color: white;
+  border-radius: 2px;
+  padding: 16px;
+  margin: 16px;
+  transition: all 0.2s ease-out;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+article.course header h1 {
+  font-weight: normal;
+  font-size: 24px;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+article.course header h2 {
+  font-weight: normal;
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+article.course section.supporting {
+  font-size: 14px;
+  color: dimgray;
+}
+
+article.course:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
