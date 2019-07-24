@@ -1,8 +1,8 @@
 import { h, watchSetChildren } from '//unpkg.com/horseless/dist/horseless.esm.js'
-import model from './model.js'
 import { ENROLLED, UNENROLLED, ALL } from './constants.js'
-import { memoizeCourse } from './controller.js'
-import { maybeSelected } from './view.js'
+import model from './model.js'
+import { maybeSelected, memoizeCourse } from './view.js'
+import { beginCourse } from './controller.js'
 
 navigator.serviceWorker.register('/sw.js')
 
@@ -24,16 +24,19 @@ watchSetChildren(document.body, h`
 </nav>
 
 <main>
-  <section class="enrolled">
-${() => Object.keys(model.catalog || {}).map(header => memoizeCourse(model.catalog[header], course => h`
+  <section class="courses">
+  ${() => Object.keys(model.catalog || {}).map(header => memoizeCourse(model.catalog[header], course => h`
     <article class="course">
       <header>
         <h1>${() => course.header}</h1>
         <h2>${() => course.subhead}</h2>
       </header>
       <section class="supporting">${() => course.supporting}</section>
+      <nav>
+        <button onclick=${beginCourse(course)}>BEGIN</button>
+      </nav>
     </article>
-`))}
+  `))}
   </section>
 </main>
 

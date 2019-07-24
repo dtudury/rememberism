@@ -1,23 +1,9 @@
-/* global self caches */
+/* global self caches fetch */
 
-/*
 const CACHE_NAME = 'rememberism-cache-v1'
-
-const FILES_TO_CACHE = [
-  'https://unpkg.com/horseless/dist/horseless.esm.js'
-]
-*/
 
 self.addEventListener('install', (evt) => {
   console.log('[ServiceWorker] Install')
-  /*
-  evt.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[ServiceWorker] Pre-caching offline page')
-      return cache.addAll(FILES_TO_CACHE)
-    })
-  )
-  */
   self.skipWaiting()
 })
 
@@ -26,23 +12,18 @@ self.addEventListener('activate', (evt) => {
   self.clients.claim()
 })
 
-/*
 self.addEventListener('fetch', (evt) => {
-  if (evt.request.url === 'https://unpkg.com/horseless/dist/horseless.esm.js') {
-    console.log('\n\n\ntada')
-    console.log('[ServiceWorker] Fetch', evt.request)
-    evt.respondWith(
-      caches.open(CACHE_NAME)
-        .then((cache) => {
-          console.log('retrieved.')
-          let result = cache.match('/horseless.esm.js')
-          console.log(result)
-          return result.then(r => {
-            console.log(r)
-            return r
-          })
+  if (evt.request.url.endsWith('/horseless.esm.js')) {
+    evt.respondWith(caches.open(CACHE_NAME).then(cache => {
+      return cache.match('/horseless.esm.js').then(match => {
+        if (match) {
+          return match
+        }
+        return fetch(evt.request).then(res => {
+          cache.put('/horseless.esm.js', res.clone())
+          return res
         })
-    )
+      })
+    }))
   }
 })
-*/

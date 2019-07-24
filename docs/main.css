@@ -19,9 +19,15 @@ header.topnav {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
+header.topnav h1 {
+  font-weight: normal;
+  font-size: 24px;
+}
+
 nav.sidenav {
   grid-column: 1/2;
   grid-row: 2/3;
+  padding: 16px 0 16px 16px;
 }
 
 nav.sidenav a {
@@ -30,6 +36,8 @@ nav.sidenav a {
   font-size: 14px;
   padding: 4px;
   color: dimgray;
+  padding: 4px 4px 4px 16px;
+  border-radius: 12px 0 0 12px;
 }
 
 nav.sidenav a.selected {
@@ -54,32 +62,46 @@ footer {
 }
 
 article.course {
+  width: 302px;
   background-color: white;
   border-radius: 2px;
   padding: 16px;
   margin: 16px;
   transition: all 0.2s ease-out;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 }
 
 article.course header h1 {
   font-weight: normal;
-  font-size: 24px;
+  font-size: 20px;
   margin: 0;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 article.course header h2 {
   font-weight: normal;
   font-size: 14px;
+  color: darkgray;
   margin: 0;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 article.course section.supporting {
   font-size: 14px;
   color: dimgray;
+}
+
+article.course nav button {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  color: firebrick;
+  margin: 16px 0 0;
+  font-size: 15px;
+}
+
+article.course nav button:focus {
+  outline: none;
 }
 
 article.course:hover {
