@@ -40,9 +40,11 @@ const readHash = () => {
     model.catagory = ENROLLED
   }
   if (postSlash) {
-    model.course = decodeURIComponent(document.location.hash.substring(slashIndex + 1))
+    model.course = decodeURIComponent(postSlash)
+    document.title = model.course
   } else {
     model.course = null
+    document.title = `Rememberism`
   }
   console.log(model.catagory, model.course)
 }

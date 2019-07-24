@@ -1,7 +1,7 @@
 import { h, watchSetChildren } from '//unpkg.com/horseless/dist/horseless.esm.js'
 import { ENROLLED, UNENROLLED, ALL } from './constants.js'
 import model from './model.js'
-import { maybeSelected, memoizeCourse } from './view.js'
+import { cardsOrCourses, maybeSelected, memoizeCourse } from './view.js'
 import { beginCourse } from './controller.js'
 
 navigator.serviceWorker.register('/sw.js')
@@ -24,6 +24,9 @@ watchSetChildren(document.body, h`
 </nav>
 
 <main>
+${cardsOrCourses(h`
+  <section class="cards">${() => model.course}</section>
+`, h`
   <section class="courses">
   ${() => Object.keys(model.catalog || {}).map(header => memoizeCourse(model.catalog[header], course => h`
     <article class="course">
@@ -38,6 +41,7 @@ watchSetChildren(document.body, h`
     </article>
   `))}
   </section>
+`)}
 </main>
 
 <footer>

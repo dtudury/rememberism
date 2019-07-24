@@ -12,3 +12,13 @@ export const memoizeCourse = (v, f) => memoize(courseMap, v, f)
 export function maybeSelected (el) {
   return (model.catagory === el.hash) ? 'selected' : ''
 }
+
+export function cardsOrCourses (course, courses) {
+  return () => {
+    if (model.course) {
+      return course
+    } else {
+      return courses
+    }
+  }
+}
