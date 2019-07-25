@@ -12,25 +12,25 @@ body {
   grid-template-rows: 72px 1fr 24px;
 }
 
-header.topnav {
+header.app {
   grid-column: 1/4;
   grid-row: 1/2;
   z-index: 1;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 }
 
-header.topnav h1 {
+header.app h1 {
   font-weight: normal;
   font-size: 24px;
 }
 
-nav.sidenav {
+nav.app {
   grid-column: 1/2;
   grid-row: 2/3;
   padding: 16px 0 16px 16px;
 }
 
-nav.sidenav a {
+nav.app a {
   display: block;
   text-decoration: none;
   font-size: 14px;
@@ -40,18 +40,18 @@ nav.sidenav a {
   border-radius: 12px 0 0 12px;
 }
 
-nav.sidenav a.selected {
+nav.app a.selected {
   background-color: whitesmoke;
 }
 
-main {
+main.app {
   grid-column: 2/4;
   grid-row: 2/3;
   overflow: auto;
   background-color: whitesmoke;
 }
 
-footer {
+footer.app {
   grid-column: 1/4;
   grid-row: 3/4;
   padding: 4px;
