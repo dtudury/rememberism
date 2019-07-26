@@ -15,10 +15,10 @@ export function maybeSelected (el) {
   return (model.catagory === el.hash) ? 'selected' : ''
 }
 
-export function cardsOrCourses (course, courses) {
+export function cardsOrCourses (cards, courses) {
   return () => {
     if (model.course) {
-      return course
+      return cards
     } else {
       return courses
     }

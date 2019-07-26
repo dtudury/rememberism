@@ -1,186 +1,48 @@
-[
-  {
-    "title": "2nd Grade word 1",
-    "word": "always"
-  },
-  {
-    "title": "2nd Grade word 2",
-    "word": "around"
-  },
-  {
-    "title": "2nd Grade word 3",
-    "word": "because"
-  },
-  {
-    "title": "2nd Grade word 4",
-    "word": "been"
-  },
-  {
-    "title": "2nd Grade word 5",
-    "word": "before"
-  },
-  {
-    "title": "2nd Grade word 6",
-    "word": "best"
-  },
-  {
-    "title": "2nd Grade word 7",
-    "word": "both"
-  },
-  {
-    "title": "2nd Grade word 8",
-    "word": "buy"
-  },
-  {
-    "title": "2nd Grade word 9",
-    "word": "call"
-  },
-  {
-    "title": "2nd Grade word 10",
-    "word": "cold"
-  },
-  {
-    "title": "2nd Grade word 11",
-    "word": "does"
-  },
-  {
-    "title": "2nd Grade word 12",
-    "word": "don't"
-  },
-  {
-    "title": "2nd Grade word 13",
-    "word": "fast"
-  },
-  {
-    "title": "2nd Grade word 14",
-    "word": "first"
-  },
-  {
-    "title": "2nd Grade word 15",
-    "word": "five"
-  },
-  {
-    "title": "2nd Grade word 16",
-    "word": "found"
-  },
-  {
-    "title": "2nd Grade word 17",
-    "word": "gave"
-  },
-  {
-    "title": "2nd Grade word 18",
-    "word": "goes"
-  },
-  {
-    "title": "2nd Grade word 19",
-    "word": "green"
-  },
-  {
-    "title": "2nd Grade word 20",
-    "word": "its"
-  },
-  {
-    "title": "2nd Grade word 21",
-    "word": "made"
-  },
-  {
-    "title": "2nd Grade word 22",
-    "word": "many"
-  },
-  {
-    "title": "2nd Grade word 23",
-    "word": "off"
-  },
-  {
-    "title": "2nd Grade word 24",
-    "word": "or"
-  },
-  {
-    "title": "2nd Grade word 25",
-    "word": "pull"
-  },
-  {
-    "title": "2nd Grade word 26",
-    "word": "read"
-  },
-  {
-    "title": "2nd Grade word 27",
-    "word": "right"
-  },
-  {
-    "title": "2nd Grade word 28",
-    "word": "sing"
-  },
-  {
-    "title": "2nd Grade word 29",
-    "word": "sit"
-  },
-  {
-    "title": "2nd Grade word 30",
-    "word": "sleep"
-  },
-  {
-    "title": "2nd Grade word 31",
-    "word": "tell"
-  },
-  {
-    "title": "2nd Grade word 32",
-    "word": "their"
-  },
-  {
-    "title": "2nd Grade word 33",
-    "word": "these"
-  },
-  {
-    "title": "2nd Grade word 34",
-    "word": "those"
-  },
-  {
-    "title": "2nd Grade word 35",
-    "word": "upon"
-  },
-  {
-    "title": "2nd Grade word 36",
-    "word": "us"
-  },
-  {
-    "title": "2nd Grade word 37",
-    "word": "use"
-  },
-  {
-    "title": "2nd Grade word 38",
-    "word": "very"
-  },
-  {
-    "title": "2nd Grade word 39",
-    "word": "wash"
-  },
-  {
-    "title": "2nd Grade word 40",
-    "word": "which"
-  },
-  {
-    "title": "2nd Grade word 41",
-    "word": "why"
-  },
-  {
-    "title": "2nd Grade word 42",
-    "word": "wish"
-  },
-  {
-    "title": "2nd Grade word 43",
-    "word": "work"
-  },
-  {
-    "title": "2nd Grade word 44",
-    "word": "would"
-  },
-  {
-    "title": "2nd Grade word 45",
-    "word": "write"
-  },
-  {
-    "title": "2nd Grade word 46",
-    "word": "your"
-  }
-]
+{
+  "2nd Grade word 1": "always",
+  "2nd Grade word 2": "around",
+  "2nd Grade word 3": "because",
+  "2nd Grade word 4": "been",
+  "2nd Grade word 5": "before",
+  "2nd Grade word 6": "best",
+  "2nd Grade word 7": "both",
+  "2nd Grade word 8": "buy",
+  "2nd Grade word 9": "call",
+  "2nd Grade word 10": "cold",
+  "2nd Grade word 11": "does",
+  "2nd Grade word 12": "don't",
+  "2nd Grade word 13": "fast",
+  "2nd Grade word 14": "first",
+  "2nd Grade word 15": "five",
+  "2nd Grade word 16": "found",
+  "2nd Grade word 17": "gave",
+  "2nd Grade word 18": "goes",
+  "2nd Grade word 19": "green",
+  "2nd Grade word 20": "its",
+  "2nd Grade word 21": "made",
+  "2nd Grade word 22": "many",
+  "2nd Grade word 23": "off",
+  "2nd Grade word 24": "or",
+  "2nd Grade word 25": "pull",
+  "2nd Grade word 26": "read",
+  "2nd Grade word 27": "right",
+  "2nd Grade word 28": "sing",
+  "2nd Grade word 29": "sit",
+  "2nd Grade word 30": "sleep",
+  "2nd Grade word 31": "tell",
+  "2nd Grade word 32": "their",
+  "2nd Grade word 33": "these",
+  "2nd Grade word 34": "those",
+  "2nd Grade word 35": "upon",
+  "2nd Grade word 36": "us",
+  "2nd Grade word 37": "use",
+  "2nd Grade word 38": "very",
+  "2nd Grade word 39": "wash",
+  "2nd Grade word 40": "which",
+  "2nd Grade word 41": "why",
+  "2nd Grade word 42": "wish",
+  "2nd Grade word 43": "work",
+  "2nd Grade word 44": "would",
+  "2nd Grade word 45": "write",
+  "2nd Grade word 46": "your"
+}

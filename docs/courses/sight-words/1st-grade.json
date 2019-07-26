@@ -1,166 +1,43 @@
-[
-  {
-    "title": "1st Grade word 1",
-    "word": "after"
-  },
-  {
-    "title": "1st Grade word 2",
-    "word": "again"
-  },
-  {
-    "title": "1st Grade word 3",
-    "word": "an"
-  },
-  {
-    "title": "1st Grade word 4",
-    "word": "any"
-  },
-  {
-    "title": "1st Grade word 5",
-    "word": "as"
-  },
-  {
-    "title": "1st Grade word 6",
-    "word": "ask"
-  },
-  {
-    "title": "1st Grade word 7",
-    "word": "by"
-  },
-  {
-    "title": "1st Grade word 8",
-    "word": "could"
-  },
-  {
-    "title": "1st Grade word 9",
-    "word": "every"
-  },
-  {
-    "title": "1st Grade word 10",
-    "word": "fly"
-  },
-  {
-    "title": "1st Grade word 11",
-    "word": "from"
-  },
-  {
-    "title": "1st Grade word 12",
-    "word": "give"
-  },
-  {
-    "title": "1st Grade word 13",
-    "word": "giving"
-  },
-  {
-    "title": "1st Grade word 14",
-    "word": "had"
-  },
-  {
-    "title": "1st Grade word 15",
-    "word": "has"
-  },
-  {
-    "title": "1st Grade word 16",
-    "word": "her"
-  },
-  {
-    "title": "1st Grade word 17",
-    "word": "him"
-  },
-  {
-    "title": "1st Grade word 18",
-    "word": "his"
-  },
-  {
-    "title": "1st Grade word 19",
-    "word": "how"
-  },
-  {
-    "title": "1st Grade word 20",
-    "word": "just"
-  },
-  {
-    "title": "1st Grade word 21",
-    "word": "know"
-  },
-  {
-    "title": "1st Grade word 22",
-    "word": "let"
-  },
-  {
-    "title": "1st Grade word 23",
-    "word": "live"
-  },
-  {
-    "title": "1st Grade word 24",
-    "word": "may"
-  },
-  {
-    "title": "1st Grade word 25",
-    "word": "of"
-  },
-  {
-    "title": "1st Grade word 26",
-    "word": "old"
-  },
-  {
-    "title": "1st Grade word 27",
-    "word": "once"
-  },
-  {
-    "title": "1st Grade word 28",
-    "word": "open"
-  },
-  {
-    "title": "1st Grade word 29",
-    "word": "over"
-  },
-  {
-    "title": "1st Grade word 30",
-    "word": "put"
-  },
-  {
-    "title": "1st Grade word 31",
-    "word": "round"
-  },
-  {
-    "title": "1st Grade word 32",
-    "word": "some"
-  },
-  {
-    "title": "1st Grade word 33",
-    "word": "stop"
-  },
-  {
-    "title": "1st Grade word 34",
-    "word": "take"
-  },
-  {
-    "title": "1st Grade word 35",
-    "word": "thank"
-  },
-  {
-    "title": "1st Grade word 36",
-    "word": "them"
-  },
-  {
-    "title": "1st Grade word 37",
-    "word": "then"
-  },
-  {
-    "title": "1st Grade word 38",
-    "word": "think"
-  },
-  {
-    "title": "1st Grade word 39",
-    "word": "walk"
-  },
-  {
-    "title": "1st Grade word 40",
-    "word": "were"
-  },
-  {
-    "title": "1st Grade word 41",
-    "word": "when"
-  }
-]
+{
+  "1st Grade word 1": "after",
+  "1st Grade word 2": "again",
+  "1st Grade word 3": "an",
+  "1st Grade word 4": "any",
+  "1st Grade word 5": "as",
+  "1st Grade word 6": "ask",
+  "1st Grade word 7": "by",
+  "1st Grade word 8": "could",
+  "1st Grade word 9": "every",
+  "1st Grade word 10": "fly",
+  "1st Grade word 11": "from",
+  "1st Grade word 12": "give",
+  "1st Grade word 13": "giving",
+  "1st Grade word 14": "had",
+  "1st Grade word 15": "has",
+  "1st Grade word 16": "her",
+  "1st Grade word 17": "him",
+  "1st Grade word 18": "his",
+  "1st Grade word 19": "how",
+  "1st Grade word 20": "just",
+  "1st Grade word 21": "know",
+  "1st Grade word 22": "let",
+  "1st Grade word 23": "live",
+  "1st Grade word 24": "may",
+  "1st Grade word 25": "of",
+  "1st Grade word 26": "old",
+  "1st Grade word 27": "once",
+  "1st Grade word 28": "open",
+  "1st Grade word 29": "over",
+  "1st Grade word 30": "put",
+  "1st Grade word 31": "round",
+  "1st Grade word 32": "some",
+  "1st Grade word 33": "stop",
+  "1st Grade word 34": "take",
+  "1st Grade word 35": "thank",
+  "1st Grade word 36": "them",
+  "1st Grade word 37": "then",
+  "1st Grade word 38": "think",
+  "1st Grade word 39": "walk",
+  "1st Grade word 40": "were",
+  "1st Grade word 41": "when"
+}

@@ -10,14 +10,15 @@ async function _setCourse (course) {
   if (document.location !== location) {
     document.location = location
     if (course) {
-      model.course = course
       document.title = course
+      model.course = course
       location = `${location}/${encodeURIComponent(course)}`
-      const config = await fetchJson('./catalog.json')
-      model.cards = await fetchJson(config.catalog[course].data)
+      const catalog = await _fetchCatalog()
+      await _installComponent(`./components/${catalog[course].component}.js`)
+      model.cards = await _fetchJson(`/courses/${catalog[course].course}`)
     } else {
+      document.title = 'Rememberism'
       model.course = null
-      document.title = 'Rememberism' // model.catagory.substring(1)
       model.cards = null
     }
   }
@@ -37,22 +38,26 @@ export function memoize (map, v, f) {
   }
   return map.get(v)
 }
-const courseMap = new Map()
-export const memoizeCourse = (v, f) => memoize(courseMap, v, f)
+const _courseMap = new Map()
+export const memoizeCourse = (v, f) => memoize(_courseMap, v, f)
 
-const fetchMap = new Map()
-async function fetchJson (path) {
-  if (!fetchMap.has(path)) {
-    fetchMap.set(path, fetch(path).then(res => res.json()))
+const _fetchMap = new Map()
+async function _fetchJson (path) {
+  if (!_fetchMap.has(path)) {
+    _fetchMap.set(path, fetch(path).then(res => res.json()))
   }
-  return fetchMap.get(path)
+  return _fetchMap.get(path)
 }
+const _fetchCatalog = () => _fetchJson('./catalog.json')
+_fetchCatalog().then(catalog => { model.catalog = catalog })
 
-async function init () {
-  const config = await fetchJson('./catalog.json')
-  model.catalog = config.catalog
+const installMap = new Map()
+async function _installComponent (path) {
+  if (!installMap.has(path)) {
+    installMap.set(path, import(path))
+  }
+  return installMap.get(path)
 }
-init()
 
 const readHash = () => {
   const slashIndex = document.location.hash.indexOf('/')

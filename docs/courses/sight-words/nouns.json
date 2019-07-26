@@ -1,382 +1,44 @@
-[
-  {
-    "title": "Nouns word 1",
-    "word": "apple"
-  },
-  {
-    "title": "Nouns word 2",
-    "word": "baby"
-  },
-  {
-    "title": "Nouns word 3",
-    "word": "back"
-  },
-  {
-    "title": "Nouns word 4",
-    "word": "ball"
-  },
-  {
-    "title": "Nouns word 5",
-    "word": "bear"
-  },
-  {
-    "title": "Nouns word 6",
-    "word": "bed"
-  },
-  {
-    "title": "Nouns word 7",
-    "word": "bell"
-  },
-  {
-    "title": "Nouns word 8",
-    "word": "bird"
-  },
-  {
-    "title": "Nouns word 9",
-    "word": "birthday"
-  },
-  {
-    "title": "Nouns word 10",
-    "word": "boat"
-  },
-  {
-    "title": "Nouns word 11",
-    "word": "box"
-  },
-  {
-    "title": "Nouns word 12",
-    "word": "boy"
-  },
-  {
-    "title": "Nouns word 13",
-    "word": "bread"
-  },
-  {
-    "title": "Nouns word 14",
-    "word": "brother"
-  },
-  {
-    "title": "Nouns word 15",
-    "word": "cake"
-  },
-  {
-    "title": "Nouns word 16",
-    "word": "car"
-  },
-  {
-    "title": "Nouns word 17",
-    "word": "cat"
-  },
-  {
-    "title": "Nouns word 18",
-    "word": "chair"
-  },
-  {
-    "title": "Nouns word 19",
-    "word": "chicken"
-  },
-  {
-    "title": "Nouns word 20",
-    "word": "children"
-  },
-  {
-    "title": "Nouns word 21",
-    "word": "Christmas"
-  },
-  {
-    "title": "Nouns word 22",
-    "word": "coat"
-  },
-  {
-    "title": "Nouns word 23",
-    "word": "corn"
-  },
-  {
-    "title": "Nouns word 24",
-    "word": "cow"
-  },
-  {
-    "title": "Nouns word 25",
-    "word": "day"
-  },
-  {
-    "title": "Nouns word 26",
-    "word": "dog"
-  },
-  {
-    "title": "Nouns word 27",
-    "word": "doll"
-  },
-  {
-    "title": "Nouns word 28",
-    "word": "door"
-  },
-  {
-    "title": "Nouns word 29",
-    "word": "duck"
-  },
-  {
-    "title": "Nouns word 30",
-    "word": "egg"
-  },
-  {
-    "title": "Nouns word 31",
-    "word": "eye"
-  },
-  {
-    "title": "Nouns word 32",
-    "word": "farm"
-  },
-  {
-    "title": "Nouns word 33",
-    "word": "farmer"
-  },
-  {
-    "title": "Nouns word 34",
-    "word": "father"
-  },
-  {
-    "title": "Nouns word 35",
-    "word": "feet"
-  },
-  {
-    "title": "Nouns word 36",
-    "word": "fire"
-  },
-  {
-    "title": "Nouns word 37",
-    "word": "fish"
-  },
-  {
-    "title": "Nouns word 38",
-    "word": "floor"
-  },
-  {
-    "title": "Nouns word 39",
-    "word": "flower"
-  },
-  {
-    "title": "Nouns word 40",
-    "word": "game"
-  },
-  {
-    "title": "Nouns word 41",
-    "word": "garden"
-  },
-  {
-    "title": "Nouns word 42",
-    "word": "girl"
-  },
-  {
-    "title": "Nouns word 43",
-    "word": "good-bye"
-  },
-  {
-    "title": "Nouns word 44",
-    "word": "grass"
-  },
-  {
-    "title": "Nouns word 45",
-    "word": "ground"
-  },
-  {
-    "title": "Nouns word 46",
-    "word": "hand"
-  },
-  {
-    "title": "Nouns word 47",
-    "word": "head"
-  },
-  {
-    "title": "Nouns word 48",
-    "word": "hill"
-  },
-  {
-    "title": "Nouns word 49",
-    "word": "home"
-  },
-  {
-    "title": "Nouns word 50",
-    "word": "horse"
-  },
-  {
-    "title": "Nouns word 51",
-    "word": "house"
-  },
-  {
-    "title": "Nouns word 52",
-    "word": "kitty"
-  },
-  {
-    "title": "Nouns word 53",
-    "word": "leg"
-  },
-  {
-    "title": "Nouns word 54",
-    "word": "letter"
-  },
-  {
-    "title": "Nouns word 55",
-    "word": "man"
-  },
-  {
-    "title": "Nouns word 56",
-    "word": "men"
-  },
-  {
-    "title": "Nouns word 57",
-    "word": "milk"
-  },
-  {
-    "title": "Nouns word 58",
-    "word": "money"
-  },
-  {
-    "title": "Nouns word 59",
-    "word": "morning"
-  },
-  {
-    "title": "Nouns word 60",
-    "word": "mother"
-  },
-  {
-    "title": "Nouns word 61",
-    "word": "name"
-  },
-  {
-    "title": "Nouns word 62",
-    "word": "nest"
-  },
-  {
-    "title": "Nouns word 63",
-    "word": "night"
-  },
-  {
-    "title": "Nouns word 64",
-    "word": "paper"
-  },
-  {
-    "title": "Nouns word 65",
-    "word": "party"
-  },
-  {
-    "title": "Nouns word 66",
-    "word": "picture"
-  },
-  {
-    "title": "Nouns word 67",
-    "word": "pig"
-  },
-  {
-    "title": "Nouns word 68",
-    "word": "rabbit"
-  },
-  {
-    "title": "Nouns word 69",
-    "word": "rain"
-  },
-  {
-    "title": "Nouns word 70",
-    "word": "ring"
-  },
-  {
-    "title": "Nouns word 71",
-    "word": "robin"
-  },
-  {
-    "title": "Nouns word 72",
-    "word": "Santa Claus"
-  },
-  {
-    "title": "Nouns word 73",
-    "word": "school"
-  },
-  {
-    "title": "Nouns word 74",
-    "word": "seed"
-  },
-  {
-    "title": "Nouns word 75",
-    "word": "sheep"
-  },
-  {
-    "title": "Nouns word 76",
-    "word": "shoe"
-  },
-  {
-    "title": "Nouns word 77",
-    "word": "sister"
-  },
-  {
-    "title": "Nouns word 78",
-    "word": "snow"
-  },
-  {
-    "title": "Nouns word 79",
-    "word": "song"
-  },
-  {
-    "title": "Nouns word 80",
-    "word": "squirrel"
-  },
-  {
-    "title": "Nouns word 81",
-    "word": "stick"
-  },
-  {
-    "title": "Nouns word 82",
-    "word": "street"
-  },
-  {
-    "title": "Nouns word 83",
-    "word": "sun"
-  },
-  {
-    "title": "Nouns word 84",
-    "word": "table"
-  },
-  {
-    "title": "Nouns word 85",
-    "word": "thing"
-  },
-  {
-    "title": "Nouns word 86",
-    "word": "time"
-  },
-  {
-    "title": "Nouns word 87",
-    "word": "top"
-  },
-  {
-    "title": "Nouns word 88",
-    "word": "toy"
-  },
-  {
-    "title": "Nouns word 89",
-    "word": "tree"
-  },
-  {
-    "title": "Nouns word 90",
-    "word": "watch"
-  },
-  {
-    "title": "Nouns word 91",
-    "word": "water"
-  },
-  {
-    "title": "Nouns word 92",
-    "word": "way"
-  },
-  {
-    "title": "Nouns word 93",
-    "word": "wind"
-  },
-  {
-    "title": "Nouns word 94",
-    "word": "window"
-  },
-  {
-    "title": "Nouns word 95",
-    "word": "wood"
-  }
-]
+{
+  "3rd Grade word 1": "about",
+  "3rd Grade word 2": "better",
+  "3rd Grade word 3": "bring",
+  "3rd Grade word 4": "carry",
+  "3rd Grade word 5": "clean",
+  "3rd Grade word 6": "cut",
+  "3rd Grade word 7": "done",
+  "3rd Grade word 8": "draw",
+  "3rd Grade word 9": "drink",
+  "3rd Grade word 10": "eight",
+  "3rd Grade word 11": "fall",
+  "3rd Grade word 12": "far",
+  "3rd Grade word 13": "full",
+  "3rd Grade word 14": "got",
+  "3rd Grade word 15": "grow",
+  "3rd Grade word 16": "hold",
+  "3rd Grade word 17": "hot",
+  "3rd Grade word 18": "hurt",
+  "3rd Grade word 19": "if",
+  "3rd Grade word 20": "keep",
+  "3rd Grade word 21": "kind",
+  "3rd Grade word 22": "laugh",
+  "3rd Grade word 23": "light",
+  "3rd Grade word 24": "long",
+  "3rd Grade word 25": "much",
+  "3rd Grade word 26": "myself",
+  "3rd Grade word 27": "never",
+  "3rd Grade word 28": "nine",
+  "3rd Grade word 29": "only",
+  "3rd Grade word 30": "own",
+  "3rd Grade word 31": "pick",
+  "3rd Grade word 32": "seven",
+  "3rd Grade word 33": "shall",
+  "3rd Grade word 34": "show",
+  "3rd Grade word 35": "six",
+  "3rd Grade word 36": "small",
+  "3rd Grade word 37": "start",
+  "3rd Grade word 38": "ten",
+  "3rd Grade word 39": "today",
+  "3rd Grade word 40": "together",
+  "3rd Grade word 41": "try",
+  "3rd Grade word 42": "warm"
+}

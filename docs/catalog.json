@@ -1,100 +1,74 @@
 {
-  "enrollment": {
-    "Pre-K Sight Words": {
-      "progress": {
-        "0": {
-          "ready": 0,
-          "streak": []
-        },
-        "1": {
-          "ready": 0,
-          "streak": []
-        },
-        "2": {
-          "ready": 0,
-          "streak": []
-        }
-      }
-    }
+  "Pre-K Sight Words": {
+    "thumbnail": "",
+    "subhead": "The Dolch Pre-primer Sight Words list",
+    "media": "",
+    "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
+    "category": "english",
+    "tags": [
+      "pre-k"
+    ],
+    "course": "sight-words/pre-k.json",
+    "component": "sight-word"
   },
-  "catalog": {
-    "Pre-K Sight Words": {
-      "header": "Pre-K Sight Words",
-      "thumbnail": "",
-      "subhead": "The Dolch Pre-primer Sight Words list",
-      "media": "",
-      "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
-      "category": "english",
-      "tags": [
-        "pre-k"
-      ],
-      "data": "./courses/sight-words/pre-k.json",
-      "component": "./courses/sight-words/component.js"
-    },
-    "Kindergarten Sight Words": {
-      "header": "Kindergarten Sight Words",
-      "thumbnail": "",
-      "subhead": "The Dolch Primer Sight Words list",
-      "media": "",
-      "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
-      "category": "english",
-      "tags": [
-        "kindergarten"
-      ],
-      "data": "./courses/sight-words/kindergarten.json",
-      "component": "./courses/sight-words/component.js"
-    },
-    "1st Grade Sight Words": {
-      "header": "1st Grade Sight Words",
-      "thumbnail": "",
-      "subhead": "The Dolch First Grade Sight Words list",
-      "media": "",
-      "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
-      "category": "english",
-      "tags": [
-        "1st-grade"
-      ],
-      "data": "./courses/sight-words/1st-grade.json",
-      "component": "./courses/sight-words/component.js"
-    },
-    "2nd Grade Sight Words": {
-      "header": "2nd Grade Sight Words",
-      "thumbnail": "",
-      "subhead": "The Dolch Second Grade Sight Words list",
-      "media": "",
-      "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
-      "category": "english",
-      "tags": [
-        "2nd-grade"
-      ],
-      "data": "./courses/sight-words/2nd-grade.json",
-      "component": "./courses/sight-words/component.js"
-    },
-    "3rd Grade Sight Words": {
-      "header": "3rd Grade Sight Words",
-      "thumbnail": "",
-      "subhead": "The Dolch Third Grade Sight Words list",
-      "media": "",
-      "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
-      "category": "english",
-      "tags": [
-        "3rd-grade"
-      ],
-      "data": "./courses/sight-words/3rd-grade.json",
-      "component": "./courses/sight-words/component.js"
-    },
-    "Noun Sight Words": {
-      "header": "Noun Sight Words",
-      "thumbnail": "",
-      "subhead": "The Dolch Noun Sight Words list",
-      "media": "",
-      "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
-      "category": "english",
-      "tags": [
-        "nouns"
-      ],
-      "data": "./courses/sight-words/3rd-grade.json",
-      "component": "./courses/sight-words/component.js"
-    }
+  "Kindergarten Sight Words": {
+    "thumbnail": "",
+    "subhead": "The Dolch Primer Sight Words list",
+    "media": "",
+    "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
+    "category": "english",
+    "tags": [
+      "kindergarten"
+    ],
+    "course": "sight-words/kindergarten.json",
+    "component": "sight-word"
+  },
+  "1st Grade Sight Words": {
+    "thumbnail": "",
+    "subhead": "The Dolch First Grade Sight Words list",
+    "media": "",
+    "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
+    "category": "english",
+    "tags": [
+      "1st-grade"
+    ],
+    "course": "sight-words/1st-grade.json",
+    "component": "sight-word"
+  },
+  "2nd Grade Sight Words": {
+    "thumbnail": "",
+    "subhead": "The Dolch Second Grade Sight Words list",
+    "media": "",
+    "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
+    "category": "english",
+    "tags": [
+      "2nd-grade"
+    ],
+    "course": "sight-words/2nd-grade.json",
+    "component": "sight-word"
+  },
+  "3rd Grade Sight Words": {
+    "thumbnail": "",
+    "subhead": "The Dolch Third Grade Sight Words list",
+    "media": "",
+    "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
+    "category": "english",
+    "tags": [
+      "3rd-grade"
+    ],
+    "course": "sight-words/3rd-grade.json",
+    "component": "sight-word"
+  },
+  "Noun Sight Words": {
+    "thumbnail": "",
+    "subhead": "The Dolch Noun Sight Words list",
+    "media": "",
+    "supporting": "Educator Dr. Edward William Dolch developed the list in the 1930s-40s by studying the most frequently occurring words in children's books of that era. The list contains 220 “service words” plus 95 high-frequency nouns.",
+    "category": "english",
+    "tags": [
+      "nouns"
+    ],
+    "course": "sight-words/3rd-grade.json",
+    "component": "sight-word"
   }
 }

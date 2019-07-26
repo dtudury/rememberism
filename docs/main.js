@@ -35,12 +35,10 @@ ${cardsOrCourses(h`
       ${() => model.course}
     </header>
     <main>
-    ${() => (model.cards || []).map(card => memoizeCard(card, card => h`
-      <article class="card">
-        ${card.title}
-        ${card.word}
-      </article>
-    `))}
+  ${() => Object.keys(model.cards || {}).map(title => memoizeCard(model.cards[title], card => {
+    const courseConfig = model.catalog[model.course]
+    return h`<${courseConfig.component} title=${title} card=${card} class="card" />`
+  }))}
     </main>
   </section>
 `, h`
@@ -48,12 +46,12 @@ ${cardsOrCourses(h`
   ${() => Object.keys(model.catalog || {}).map(header => memoizeCourse(model.catalog[header], course => h`
     <article class="course">
       <header>
-        <h1>${() => course.header}</h1>
+        <h1>${() => header}</h1>
         <h2>${() => course.subhead}</h2>
       </header>
       <section class="supporting">${() => course.supporting}</section>
       <nav>
-        <button onclick=${beginCourse(course.header)}>BEGIN</button>
+        <button onclick=${beginCourse(header)}>BEGIN</button>
       </nav>
     </article>
   `))}
