@@ -1,21 +1,21 @@
 {
-  "name": "sightwords",
+  "name": "rememberism",
   "version": "1.0.0",
-  "description": "display a random word from a list",
+  "description": "flashcards",
   "main": "index.js",
   "scripts": {
     "start": "serve -S ./docs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dtudury/sightwords.git"
+    "url": "git+https://github.com/dtudury/rememberism.git"
   },
   "author": "David Tudury <david.tudury@gmail.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/dtudury/sightwords/issues"
+    "url": "https://github.com/dtudury/rememberism/issues"
   },
-  "homepage": "https://github.com/dtudury/sightwords#readme",
+  "homepage": "https://github.com/dtudury/rememberism#readme",
   "devDependencies": {
     "serve": "^11.1.0",
     "standard": "^13.1.0"
