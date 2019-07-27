@@ -51,15 +51,15 @@ async function _fetchJson (path) {
 const _fetchCatalog = () => _fetchJson('./catalog.json')
 _fetchCatalog().then(catalog => { model.catalog = catalog })
 
-const installMap = new Map()
+const _installMap = new Map()
 async function _installComponent (path) {
-  if (!installMap.has(path)) {
-    installMap.set(path, import(path))
+  if (!_installMap.has(path)) {
+    _installMap.set(path, import(path))
   }
-  return installMap.get(path)
+  return _installMap.get(path)
 }
 
-const readHash = () => {
+const _readHash = () => {
   const slashIndex = document.location.hash.indexOf('/')
   let preSlash = document.location.hash
   let postSlash
@@ -76,5 +76,5 @@ const readHash = () => {
   }
   _setCourse(postSlash && decodeURIComponent(postSlash))
 }
-window.addEventListener('load', readHash)
-window.addEventListener('hashchange', readHash)
+window.addEventListener('load', _readHash)
+window.addEventListener('hashchange', _readHash)

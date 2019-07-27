@@ -6,14 +6,16 @@ customElements.define('sight-word', class extends HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
   }
+
   connectedCallback () {
-    console.log('connected', this.card)
     this.showCard()
   }
+
   disconnectedCallback () {
     unwatchFunction(this.watchedFunction)
     delete this.watchedFunction
   }
+
   showCard () {
     if (this.card && !this.watchedFunction) {
       this.watchedFunction = watchSetChildren(this.shadowRoot, h`
@@ -22,10 +24,20 @@ customElements.define('sight-word', class extends HTMLElement {
             background-color: white;
             padding: 16px;
           }
+          h1 {
+            font-weight: normal;
+            font-size: 20px;
+            margin: 0;
+            margin-bottom: 4px;
+          }
         </style>
-        <span>${this.title}</span>
-        <span>${this.card}</span>
+        <h1>${this.title}</h1>
+        <span onclick=${this.handleclick}>${() => JSON.stringify(this.progress)}</span>
       `)
     }
+  }
+
+  handleClick () {
+    console.log('click')
   }
 })

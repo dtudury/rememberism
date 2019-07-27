@@ -19,7 +19,7 @@ self.addEventListener('fetch', (evt) => {
         if (match) {
           return match
         }
-        return fetch(evt.request).then(res => {
+        return fetch('//unpkg.com/horseless@0.0.9/dist/horseless.esm.js').then(res => {
           cache.put('/horseless.esm.js', res.clone())
           return res
         })

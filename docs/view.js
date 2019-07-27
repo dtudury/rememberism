@@ -6,10 +6,10 @@ export function memoize (map, v, f) {
   }
   return map.get(v)
 }
-const courseMap = new Map()
-export const memoizeCourse = (v, f) => memoize(courseMap, v, f)
-const cardMap = new Map()
-export const memoizeCard = (v, f) => memoize(cardMap, v, f)
+const _courseMap = new Map()
+export const memoizeCourse = (v, f) => memoize(_courseMap, v, f)
+const _cardMap = new Map()
+export const memoizeCard = (v, f) => memoize(_cardMap, v, f)
 
 export function maybeSelected (el) {
   return (model.catagory === el.hash) ? 'selected' : ''

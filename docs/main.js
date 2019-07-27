@@ -35,10 +35,24 @@ ${cardsOrCourses(h`
       ${() => model.course}
     </header>
     <main>
-  ${() => Object.keys(model.cards || {}).map(title => memoizeCard(model.cards[title], card => {
+  ${() => Object.keys(model.cards || {}).map(title => {
+    const card = model.cards[title]
     const courseConfig = model.catalog[model.course]
-    return h`<${courseConfig.component} title=${title} card=${card} class="card" />`
-  }))}
+    const courseProgress = model.progress[model.course]
+    const progress = courseProgress && courseProgress[title]
+    if (progress && progress.a === 1) {
+      setInterval(() => {
+        progress.a += Math.random()
+      }, 500)
+    }
+    return {
+      title,
+      a: progress && progress.a,
+      h: memoizeCard(card, card => h`<${courseConfig.component} title=${title} card=${card} progress=${progress} class="card" />`)
+    }
+  }).sort((a, b) => {
+    return (b.a || 0) - (a.a || 0)
+  }).map(bundle => bundle.h)}
     </main>
   </section>
 `, h`
