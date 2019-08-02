@@ -1,5 +1,6 @@
 import model from './model.js'
 import { h } from '//unpkg.com/horseless/dist/horseless.esm.js'
+import { ongrade } from './controller.js'
 
 export function memoize (map, v, f) {
   if (!map.has(v)) {
@@ -29,21 +30,36 @@ export function sortedCards () {
   return Object.keys(model.cards || {}).map(title => {
     const card = model.cards[title]
     const courseConfig = model.catalog[model.course]
-    const courseProgress = model.progress[model.course]
-    const progress = courseProgress && courseProgress[title]
-    if (model.now && progress && progress.c && progress.b) {
-      progress.a = Math.max(1, (model.now - progress.c) * progress.b)
-      progress.now = model.now
+    function getUrgency () {
+      const courseProgress = model.progress[model.course]
+      const progress = courseProgress && courseProgress[title]
+      if (progress) {
+        if (progress.start && progress.due) {
+          return (model.now - progress.start) / (progress.due - progress.start)
+        }
+        return Number.POSITIVE_INFINITY
+      }
+      return -1
     }
-    function ongrade (isCorrect) {
-      console.log(model.course, title, card, isCorrect)
+    function calculateClass () {
+      const urgency = getUrgency()
+      if (urgency >= 1) {
+        return 'card due'
+      } else if (urgency >= 0) {
+        return 'card ok'
+      } else {
+        return 'card'
+      }
     }
-    return {
-      title,
-      a: progress && progress.a,
-      h: memoizeCard(card, card => h`<${courseConfig.component} title=${title} card=${card} ongrade=${ongrade} class="card" />`)
-    }
+    const urgency = getUrgency()
+    const el = memoizeCard(card, card => h`<${courseConfig.component} 
+      title=${title} 
+      card=${card} 
+      ongrade=${ongrade.bind(null, model.course, title)} 
+      class=${calculateClass} 
+    />`)
+    return { urgency, el }
   }).sort((a, b) => {
-    return (b.a || 0) - (a.a || 0)
-  }).map(bundle => bundle.h)
+    return b.urgency - a.urgency
+  }).map(bundle => bundle.el)
 }

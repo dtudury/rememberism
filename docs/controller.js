@@ -32,6 +32,23 @@ export function leaveCourse () {
   _setCourse(null)
 }
 
+export function ongrade (course, title, isCorrect) {
+  const courseProgress = model.progress[course] = (model.progress[course] || {})
+  const progress = courseProgress[title] = (courseProgress[title] || {})
+  const now = Date.now()
+  if (isCorrect) {
+    progress.start = progress.start || now
+    progress.due = now + Math.max((now - progress.start) * 1.6, 1000)
+    progress.count = (progress.count || 0) + 1
+  } else {
+    delete progress.start
+    delete progress.due
+    delete progress.count
+  }
+  console.log(progress)
+  model.now = now
+}
+
 export function memoize (map, v, f) {
   if (!map.has(v)) {
     map.set(v, f(v))

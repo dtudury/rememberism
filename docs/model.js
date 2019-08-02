@@ -11,9 +11,9 @@ setInterval(() => {
 
 model.progress = {
   'Pre-K Sight Words': {
-    'Pre-primer word 1': { streak: [], c: Date.now() + 1000, b: 1.5 },
-    'Pre-primer word 2': { streak: [], c: Date.now() + 1000, b: 1.2 },
-    'Pre-primer word 3': { streak: [], c: Date.now() + 100, b: 1.1 }
+    'Pre-primer word 1': {},
+    'Pre-primer word 2': {},
+    'Pre-primer word 3': {}
   }
 }
 export default model
