@@ -1,7 +1,7 @@
 import { h, watchSetChildren } from '//unpkg.com/horseless/dist/horseless.esm.js'
 import { ENROLLED, UNENROLLED, ALL } from './constants.js'
 import model from './model.js'
-import { cardsOrCourses, maybeSelected, memoizeCourse, memoizeCard } from './view.js'
+import { cardsOrCourses, maybeSelected, memoizeCourse, sortedCards } from './view.js'
 import { beginCourse, leaveCourse } from './controller.js'
 
 navigator.serviceWorker.register('/sw.js')
@@ -35,24 +35,7 @@ ${cardsOrCourses(h`
       ${() => model.course}
     </header>
     <main>
-  ${() => Object.keys(model.cards || {}).map(title => {
-    const card = model.cards[title]
-    const courseConfig = model.catalog[model.course]
-    const courseProgress = model.progress[model.course]
-    const progress = courseProgress && courseProgress[title]
-    if (progress && progress.a === 1) {
-      setInterval(() => {
-        progress.a += Math.random()
-      }, 500)
-    }
-    return {
-      title,
-      a: progress && progress.a,
-      h: memoizeCard(card, card => h`<${courseConfig.component} title=${title} card=${card} progress=${progress} class="card" />`)
-    }
-  }).sort((a, b) => {
-    return (b.a || 0) - (a.a || 0)
-  }).map(bundle => bundle.h)}
+      ${sortedCards}
     </main>
   </section>
 `, h`

@@ -12,13 +12,13 @@ customElements.define('sight-word', class extends HTMLElement {
   }
 
   disconnectedCallback () {
-    unwatchFunction(this.watchedFunction)
-    delete this.watchedFunction
+    unwatchFunction(this._watchedFunction)
+    delete this._watchedFunction
   }
 
   showCard () {
-    if (this.card && !this.watchedFunction) {
-      this.watchedFunction = watchSetChildren(this.shadowRoot, h`
+    if (this.card && !this._watchedFunction) {
+      this._watchedFunction = watchSetChildren(this.shadowRoot, h`
         <style>
           :host {
             background-color: white;
@@ -32,12 +32,10 @@ customElements.define('sight-word', class extends HTMLElement {
           }
         </style>
         <h1>${this.title}</h1>
-        <span onclick=${this.handleclick}>${() => JSON.stringify(this.progress)}</span>
+        <h2>${this.card}</h2>
+        <span onclick=${() => this.ongrade(true)}>correct</span>
+        <span onclick=${() => this.ongrade(false)}>incorrect</span>
       `)
     }
-  }
-
-  handleClick () {
-    console.log('click')
   }
 })

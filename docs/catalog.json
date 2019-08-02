@@ -8,7 +8,7 @@
     "tags": [
       "pre-k"
     ],
-    "course": "sight-words/pre-k.json",
+    "json": "sight-words/pre-k.json",
     "component": "sight-word"
   },
   "Kindergarten Sight Words": {
@@ -20,7 +20,7 @@
     "tags": [
       "kindergarten"
     ],
-    "course": "sight-words/kindergarten.json",
+    "json": "sight-words/kindergarten.json",
     "component": "sight-word"
   },
   "1st Grade Sight Words": {
@@ -32,7 +32,7 @@
     "tags": [
       "1st-grade"
     ],
-    "course": "sight-words/1st-grade.json",
+    "json": "sight-words/1st-grade.json",
     "component": "sight-word"
   },
   "2nd Grade Sight Words": {
@@ -44,7 +44,7 @@
     "tags": [
       "2nd-grade"
     ],
-    "course": "sight-words/2nd-grade.json",
+    "json": "sight-words/2nd-grade.json",
     "component": "sight-word"
   },
   "3rd Grade Sight Words": {
@@ -56,7 +56,7 @@
     "tags": [
       "3rd-grade"
     ],
-    "course": "sight-words/3rd-grade.json",
+    "json": "sight-words/3rd-grade.json",
     "component": "sight-word"
   },
   "Noun Sight Words": {
@@ -68,7 +68,7 @@
     "tags": [
       "nouns"
     ],
-    "course": "sight-words/3rd-grade.json",
+    "json": "sight-words/nouns.json",
     "component": "sight-word"
   }
 }

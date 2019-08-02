@@ -15,7 +15,7 @@ async function _setCourse (course) {
       location = `${location}/${encodeURIComponent(course)}`
       const catalog = await _fetchCatalog()
       await _installComponent(`./components/${catalog[course].component}.js`)
-      model.cards = await _fetchJson(`/courses/${catalog[course].course}`)
+      model.cards = await _fetchJson(`/courses/${catalog[course].json}`)
     } else {
       document.title = 'Rememberism'
       model.course = null
