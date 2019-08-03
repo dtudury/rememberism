@@ -33,8 +33,8 @@ customElements.define('sight-word', class extends HTMLElement {
         </style>
         <h1>${this.title}</h1>
         <h2>${this.card}</h2>
-        <span onclick=${() => this.ongrade(true)}>correct</span>
-        <span onclick=${() => this.ongrade(false)}>incorrect</span>
+        <span onclick=${e => this.ongrade(true, e)}>correct</span>
+        <span onclick=${e => this.ongrade(false, e)}>incorrect</span>
       `)
     }
   }

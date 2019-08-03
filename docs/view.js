@@ -1,6 +1,6 @@
 import model from './model.js'
 import { h } from '//unpkg.com/horseless/dist/horseless.esm.js'
-import { ongrade } from './controller.js'
+import { ongrade, getScore } from './controller.js'
 
 export function memoize (map, v, f) {
   if (!map.has(v)) {
@@ -13,7 +13,7 @@ export const memoizeCourse = (v, f) => memoize(_courseMap, v, f)
 const _cardMap = new Map()
 export const memoizeCard = (v, f) => memoize(_cardMap, v, f)
 
-export function maybeSelected (el) {
+export function mayBeSelected (el) {
   return (model.catagory === el.hash) ? 'selected' : ''
 }
 
@@ -27,40 +27,33 @@ export function cardsOrCourses (cards, courses) {
   }
 }
 
-function _getScore (title) {
-  const courseProgress = model.progress[model.course]
-  const progress = courseProgress && courseProgress[title]
-  if (progress) {
-    if (!progress.due || !progress.start) {
-      return 0
-    } else {
-      return (progress.due - progress.start) / (model.now - progress.start)
-    }
-  }
-  return -1
-}
-
 function _calculateClass (title) {
-  const score = _getScore(title)
-  if (score > 1) {
-    return 'card high'
-  } else if (score >= 0) {
-    return 'card low'
-  } else {
-    return 'card'
+  const classes = ['card']
+  if (title === model.testing) {
+    classes.push('testing')
   }
+  const score = getScore(title)
+  if (score > 1) {
+    classes.push('probably')
+  } else if (score >= 0) {
+    classes.push('maybe')
+  } else {
+    classes.push('unknown')
+  }
+  return classes.join(' ')
 }
 
 export function sortedCards () {
   return Object.keys(model.cards || {}).map(title => {
     const card = model.cards[title]
     const courseConfig = model.catalog[model.course]
-    const score = _getScore(title)
+    const score = getScore(title)
     const el = memoizeCard(card, card => h`<${courseConfig.component} 
       title=${title} 
       card=${card} 
       ongrade=${ongrade.bind(null, model.course, title)} 
-      class=${() => _calculateClass(title)}
+      onclick=${() => { model.testing = title }}
+      class=${_calculateClass.bind(null, title)}
     />`)
     return { score, el }
   }).sort((a, b) => {

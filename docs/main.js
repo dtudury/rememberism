@@ -1,7 +1,7 @@
 import { h, watchSetChildren } from '//unpkg.com/horseless/dist/horseless.esm.js'
 import { ENROLLED, UNENROLLED, ALL } from './constants.js'
 import model from './model.js'
-import { cardsOrCourses, maybeSelected, memoizeCourse, sortedCards } from './view.js'
+import { cardsOrCourses, mayBeSelected, memoizeCourse, sortedCards } from './view.js'
 import { beginCourse, leaveCourse } from './controller.js'
 
 navigator.serviceWorker.register('/sw.js')
@@ -18,9 +18,9 @@ watchSetChildren(document.body, h`
 </header>
 
 <nav class="app">
-  <a class=${maybeSelected} href=${ENROLLED}>enrolled</a>
-  <a class=${maybeSelected} href=${UNENROLLED}>unenrolled</a>
-  <a class=${maybeSelected} href=${ALL}>all courses</a>
+  <a class=${mayBeSelected} href=${ENROLLED}>enrolled</a>
+  <a class=${mayBeSelected} href=${UNENROLLED}>unenrolled</a>
+  <a class=${mayBeSelected} href=${ALL}>all courses</a>
 </nav>
 
 <main class="app">

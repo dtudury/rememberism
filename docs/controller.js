@@ -16,12 +16,40 @@ async function _setCourse (course) {
       const catalog = await _fetchCatalog()
       await _installComponent(`./components/${catalog[course].component}.js`)
       model.cards = await _fetchJson(`/courses/${catalog[course].json}`)
+      _setTesting(Date.now())
     } else {
       document.title = 'Rememberism'
       model.course = null
       model.cards = null
     }
   }
+}
+
+export function getScore (title) {
+  const courseProgress = model.progress[model.course]
+  const progress = courseProgress && courseProgress[title]
+  if (progress) {
+    if (!progress.due || !progress.start) {
+      return 0
+    } else {
+      return (progress.due - progress.start) / (model.now - progress.start)
+    }
+  }
+  return -1
+}
+
+function _setTesting (now) {
+  model.now = now
+  let bestTitle
+  let bestScore
+  Object.keys(model.cards || {}).forEach(title => {
+    const score = getScore(title)
+    if (score < 1 && (!bestTitle || (score >= 0 && score <= bestScore))) {
+      bestTitle = title
+      bestScore = score
+    }
+  })
+  model.testing = bestTitle
 }
 
 export function beginCourse (course) {
@@ -32,21 +60,21 @@ export function leaveCourse () {
   _setCourse(null)
 }
 
-export function ongrade (course, title, isCorrect) {
+export function ongrade (course, title, isCorrect, e) {
+  e.stopPropagation()
   const courseProgress = model.progress[course] = (model.progress[course] || {})
   const progress = courseProgress[title] = (courseProgress[title] || {})
   const now = Date.now()
   if (isCorrect) {
     progress.start = progress.start || now
-    progress.due = now + Math.max((now - progress.start) * 1.6, 1)
+    progress.due = now + Math.max((now - progress.start) * (1 + Math.sqrt(5)) / 2, 1) // golden ratio
     progress.count = (progress.count || 0) + 1
   } else {
     delete progress.start
     delete progress.due
     delete progress.count
   }
-  console.log(progress)
-  model.now = now
+  _setTesting(now)
 }
 
 export function memoize (map, v, f) {
