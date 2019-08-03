@@ -26,40 +26,44 @@ export function cardsOrCourses (cards, courses) {
     }
   }
 }
+
+function _getScore (title) {
+  const courseProgress = model.progress[model.course]
+  const progress = courseProgress && courseProgress[title]
+  if (progress) {
+    if (!progress.due || !progress.start) {
+      return 0
+    } else {
+      return (progress.due - progress.start) / (model.now - progress.start)
+    }
+  }
+  return -1
+}
+
+function _calculateClass (title) {
+  const score = _getScore(title)
+  if (score > 1) {
+    return 'card high'
+  } else if (score >= 0) {
+    return 'card low'
+  } else {
+    return 'card'
+  }
+}
+
 export function sortedCards () {
   return Object.keys(model.cards || {}).map(title => {
     const card = model.cards[title]
     const courseConfig = model.catalog[model.course]
-    function getUrgency () {
-      const courseProgress = model.progress[model.course]
-      const progress = courseProgress && courseProgress[title]
-      if (progress) {
-        if (progress.start && progress.due) {
-          return (model.now - progress.start) / (progress.due - progress.start)
-        }
-        return Number.POSITIVE_INFINITY
-      }
-      return -1
-    }
-    function calculateClass () {
-      const urgency = getUrgency()
-      if (urgency >= 1) {
-        return 'card due'
-      } else if (urgency >= 0) {
-        return 'card ok'
-      } else {
-        return 'card'
-      }
-    }
-    const urgency = getUrgency()
+    const score = _getScore(title)
     const el = memoizeCard(card, card => h`<${courseConfig.component} 
       title=${title} 
       card=${card} 
       ongrade=${ongrade.bind(null, model.course, title)} 
-      class=${calculateClass} 
+      class=${() => _calculateClass(title)}
     />`)
-    return { urgency, el }
+    return { score, el }
   }).sort((a, b) => {
-    return b.urgency - a.urgency
+    return b.score - a.score
   }).map(bundle => bundle.el)
 }

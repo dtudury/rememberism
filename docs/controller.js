@@ -38,7 +38,7 @@ export function ongrade (course, title, isCorrect) {
   const now = Date.now()
   if (isCorrect) {
     progress.start = progress.start || now
-    progress.due = now + Math.max((now - progress.start) * 1.6, 1000)
+    progress.due = now + Math.max((now - progress.start) * 1.6, 1)
     progress.count = (progress.count || 0) + 1
   } else {
     delete progress.start
