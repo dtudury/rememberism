@@ -9,7 +9,7 @@ html, body {
 body {
   display: grid;
   grid-template-columns: 256px 1fr 48px;
-  grid-template-rows: 72px 1fr 24px;
+  grid-template-rows: auto 1fr auto;
 }
 
 header.app {
@@ -17,11 +17,27 @@ header.app {
   grid-row: 1/2;
   z-index: 1;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: repeat(3, min-content);
+  column-gap: 8px;
+  padding: 8px;
+}
+
+header.app .hamburger {
+  margin: 8px;
+}
+
+header.app .logo {
+  width: 40px;
+  border-radius: 8px;
+  margin: auto;
 }
 
 header.app h1 {
   font-weight: normal;
   font-size: 24px;
+  display: inline;
+  margin: 8px;
 }
 
 nav.app {

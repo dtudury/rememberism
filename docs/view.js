@@ -44,7 +44,8 @@ function _calculateClass (title) {
 }
 
 export function sortedCards () {
-  return Object.keys(model.cards || {}).map(title => {
+  return h`<main>
+  ${() => Object.keys(model.cards || {}).map(title => {
     const card = model.cards[title]
     const courseConfig = model.catalog[model.course]
     const score = getScore(title)
@@ -58,5 +59,6 @@ export function sortedCards () {
     return { score, el }
   }).sort((a, b) => {
     return b.score - a.score
-  }).map(bundle => bundle.el)
+  }).map(bundle => bundle.el)}
+  </main>`
 }

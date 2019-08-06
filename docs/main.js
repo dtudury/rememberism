@@ -8,11 +8,11 @@ navigator.serviceWorker.register('/sw.js')
 
 watchSetChildren(document.body, h`
 <header class="app">
+  <svg class="hamburger" focusable="false" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+  </svg>
+  <img class="logo" src="/site-config/apple-touch-icon.png" />
   <h1>
-    <svg focusable="false" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
-    </svg>
-    <img src="/site-config/favicon-32x32.png" />
     Rememberism
   </h1>
 </header>
@@ -34,9 +34,7 @@ ${cardsOrCourses(h`
       </button>
       ${() => model.course}
     </header>
-    <main>
-      ${sortedCards}
-    </main>
+    ${sortedCards}
   </section>
 `, h`
   <section class="courses">
