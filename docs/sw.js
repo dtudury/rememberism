@@ -1,6 +1,7 @@
 /* global self caches fetch */
 
 const CACHE_NAME = 'rememberism-cache-v1'
+const HORSELESS_VERSION = '//unpkg.com/horseless@0.0.12/dist/horseless.esm.js'
 
 self.addEventListener('install', (evt) => {
   console.log('[ServiceWorker] Install')
@@ -15,12 +16,12 @@ self.addEventListener('activate', (evt) => {
 self.addEventListener('fetch', (evt) => {
   if (evt.request.url.endsWith('/horseless.esm.js')) {
     evt.respondWith(caches.open(CACHE_NAME).then(cache => {
-      return cache.match('/horseless.esm.js').then(match => {
+      return cache.match(HORSELESS_VERSION).then(match => {
         if (match) {
           return match
         }
-        return fetch('//unpkg.com/horseless@0.0.10/dist/horseless.esm.js').then(res => {
-          cache.put('/horseless.esm.js', res.clone())
+        return fetch(HORSELESS_VERSION).then(res => {
+          cache.put(HORSELESS_VERSION, res.clone())
           return res
         })
       })

@@ -1,5 +1,5 @@
 import model from './model.js'
-import { h } from '//unpkg.com/horseless/dist/horseless.esm.js'
+import { h, watch } from '//unpkg.com/horseless/dist/horseless.esm.js'
 import { ongrade, getScore } from './controller.js'
 
 export function memoize (map, v, f) {
@@ -27,7 +27,7 @@ export function cardsOrCourses (cards, courses) {
   }
 }
 
-function _calculateClass (title) {
+function _calculateCardClasses (title) {
   const classes = ['card']
   if (title === model.testing) {
     classes.push('testing')
@@ -43,22 +43,35 @@ function _calculateClass (title) {
   return classes.join(' ')
 }
 
+export function cardsHeight () {
+  return `height: calc(72px * ${sortedTitles().length - 1} + 100%);`
+}
+
+watch(model, () => {
+  const index = sortedTitles().indexOf(model.testing)
+  document.querySelector('main.app').scrollTo({ top: index * 72 + 2, left: 0, behavior: 'smooth' })
+}, 'testing')
+
+function sortedTitles () {
+  return Object.keys(model.cards || {}).map(title => {
+    return { score: getScore(title), title }
+  }).sort((a, b) => {
+    return a.score - b.score
+  }).map(bundle => bundle.title)
+}
+
 export function sortedCards () {
   return h`<main>
-  ${() => Object.keys(model.cards || {}).map(title => {
+  ${() => sortedTitles().map(title => {
     const card = model.cards[title]
     const courseConfig = model.catalog[model.course]
-    const score = getScore(title)
-    const el = memoizeCard(card, card => h`<${courseConfig.component} 
+    return memoizeCard(card, card => h`<${courseConfig.component} 
       title=${title} 
       card=${card} 
       ongrade=${ongrade.bind(null, model.course, title)} 
       onclick=${() => { model.testing = title }}
-      class=${_calculateClass.bind(null, title)}
+      class=${_calculateCardClasses.bind(null, title)}
     />`)
-    return { score, el }
-  }).sort((a, b) => {
-    return b.score - a.score
-  }).map(bundle => bundle.el)}
+  })}
   </main>`
 }

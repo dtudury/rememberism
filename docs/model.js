@@ -1,5 +1,5 @@
-import { watch, modelify } from '//unpkg.com/horseless/dist/horseless.esm.js'
-const model = modelify({})
+import { watch, remodel } from '//unpkg.com/horseless/dist/horseless.esm.js'
+const model = remodel({})
 model.now = Date.now()
 
 const savedProgress = window.localStorage.getItem('progress')

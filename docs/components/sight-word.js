@@ -1,5 +1,5 @@
 /* global customElements HTMLElement */
-import { h, watchSetChildren, unwatchFunction } from '//unpkg.com/horseless/dist/horseless.esm.js'
+import { h, render, unwatchFunction } from '//unpkg.com/horseless/dist/horseless.esm.js'
 
 customElements.define('sight-word', class extends HTMLElement {
   constructor () {
@@ -18,7 +18,7 @@ customElements.define('sight-word', class extends HTMLElement {
 
   showCard () {
     if (this.card && !this._watchedFunction) {
-      this._watchedFunction = watchSetChildren(this.shadowRoot, h`
+      this._watchedFunction = render(this.shadowRoot, h`
         <style>
           :host {
             background-color: white;

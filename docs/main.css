@@ -67,6 +67,18 @@ main.app {
   background-color: whitesmoke;
 }
 
+section.cards header {
+  position: sticky;
+  top: 0;
+  background: whitesmoke;
+}
+
+section.cards header button {
+  background: none;
+  outline: none;
+  border: none;
+}
+
 section.cards .card {
   display: block;
   width: 302px;
