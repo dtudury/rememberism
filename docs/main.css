@@ -80,14 +80,15 @@ section.cards header button {
 }
 
 section.cards .card {
-  display: block;
-  width: 302px;
-  border-radius: 2px;
+  display: grid;
+  width: 344px;
+  border-radius: 4px;
   margin: 16px;
   transition: all 0.2s ease-out;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   background: whitesmoke;
-  height: 24px;
+  height: 56px;
+  box-sizing: border-box;
   overflow: hidden;
 }
 
@@ -104,7 +105,7 @@ section.cards .card.maybe {
 }
 
 section.cards .card.testing {
-  height: 200px;
+  height: fit-content;
 }
 
 section.cards .card.unknown {
@@ -124,7 +125,7 @@ footer.app {
 article.course {
   width: 302px;
   background-color: white;
-  border-radius: 2px;
+  border-radius: 4px;
   padding: 16px;
   margin: 16px;
   transition: all 0.2s ease-out;

@@ -22,19 +22,44 @@ customElements.define('sight-word', class extends HTMLElement {
         <style>
           :host {
             background-color: white;
-            padding: 16px;
+            grid-template-rows: 56px 1fr auto;
           }
           h1 {
             font-weight: normal;
             font-size: 20px;
+            margin: auto 16px;
+          }
+          h2 {
+            font-size: 64px;
+            padding: 32px 16px;
             margin: 0;
-            margin-bottom: 4px;
+            background: whitesmoke;
+          }
+          .actionarea {
+            margin: 8px 12px;
+          }
+          button {
+            float: left;
+            margin: 0 4px;
+            background: none;
+            padding: 12px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: solid 1px lightgray;
+          }
+          .correct {
+
+          }
+          .incorrect {
+
           }
         </style>
         <h1>${this.title}</h1>
         <h2>${this.card}</h2>
-        <span onclick=${e => this.ongrade(true, e)}>correct</span>
-        <span onclick=${e => this.ongrade(false, e)}>incorrect</span>
+        <div class="actionarea">
+          <button class="correct" onclick=${e => this.ongrade(true, e)}>✔️ CORRECT</button>
+          <button class="incorrect" onclick=${e => this.ongrade(false, e)}>❌️️ INCORRECT</button>
+        </div>
       `)
     }
   }

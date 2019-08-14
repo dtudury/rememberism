@@ -44,12 +44,12 @@ function _calculateCardClasses (title) {
 }
 
 export function cardsHeight () {
-  return `height: calc(72px * ${sortedTitles().length - 1} + 2px + 100%);`
+  return `height: calc(72px * ${sortedTitles().length - 1} + 5px + 100%);`
 }
 
 watch(model, () => {
   const index = sortedTitles().indexOf(model.testing)
-  document.querySelector('main.app').scrollTo({ top: index * 72 + 2, left: 0, behavior: 'smooth' })
+  document.querySelector('main.app').scrollTo({ top: index * 72 + 5, left: 0, behavior: 'smooth' })
 }, 'testing')
 
 function sortedTitles () {
