@@ -43,7 +43,7 @@ header.app h1 {
 nav.app {
   grid-column: 1/2;
   grid-row: 2/3;
-  padding: 16px 0 16px 16px;
+  padding: 16px 16px 16px 0;
 }
 
 nav.app a {
@@ -53,7 +53,7 @@ nav.app a {
   padding: 4px;
   color: dimgray;
   padding: 4px 4px 4px 16px;
-  border-radius: 12px 0 0 12px;
+  border-radius: 0 12px 12px 0;
 }
 
 nav.app a.selected {
@@ -70,13 +70,14 @@ main.app {
 section.cards header {
   position: sticky;
   top: 0;
-  background: whitesmoke;
+  background: white;
+  padding: 16px 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-section.cards header button {
-  background: none;
-  outline: none;
-  border: none;
+section.cards header .backbutton {
+  padding: 12px;
+  cursor: pointer;
 }
 
 section.cards .card {
@@ -160,9 +161,12 @@ article.course nav button {
   cursor: pointer;
   border: none;
   padding: 0;
-  color: firebrick;
+  color: dimgray;
   margin: 16px 0 0;
-  font-size: 15px;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: solid 1px dimgray;
 }
 
 article.course nav button:focus {

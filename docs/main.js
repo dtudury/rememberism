@@ -27,11 +27,7 @@ render(document.body, h`
 ${cardsOrCourses(h`
   <section class="cards" style=${cardsHeight}>
     <header>
-      <button onclick=${leaveCourse}>
-      <svg focusable="false" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 12L12 4L13 5L8 11H19V13H8L13 19L12 20L4 12z"></path>
-      </svg>
-      </button>
+      <span class="backbutton" onclick=${leaveCourse}>⬅</span>
       ${() => model.course}
     </header>
     ${sortedCards}
@@ -54,7 +50,7 @@ ${cardsOrCourses(h`
       </header>
       <section class="supporting">${() => course.supporting}</section>
       <nav>
-        <button onclick=${beginCourse(courseTitle)}>BEGIN</button>
+        <button onclick=${beginCourse(courseTitle)}>▶ BEGIN</button>
       </nav>
     </article>
   `))

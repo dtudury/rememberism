@@ -21,6 +21,7 @@ async function _setCourse (course) {
       document.title = 'Rememberism'
       model.course = null
       model.cards = null
+      model.testing = null
     }
   }
 }

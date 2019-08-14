@@ -33,7 +33,11 @@ customElements.define('sight-word', class extends HTMLElement {
             font-size: 64px;
             padding: 32px 16px;
             margin: 0;
-            background: whitesmoke;
+          }
+          hr {
+            border: none;
+            border-top: solid 1px lightgray;
+            margin: 0 16px;
           }
           .actionarea {
             margin: 8px 12px;
@@ -45,20 +49,24 @@ customElements.define('sight-word', class extends HTMLElement {
             padding: 12px;
             font-size: 14px;
             border-radius: 4px;
-            border: solid 1px lightgray;
+            cursor: pointer;
           }
           .correct {
-
+            color: darkgreen;
+            border: solid 1px darkgreen;
           }
           .incorrect {
-
+            color: firebrick;
+            border: solid 1px firebrick;
           }
         </style>
         <h1>${this.title}</h1>
+        <hr/>
         <h2>${this.card}</h2>
+        <hr/>
         <div class="actionarea">
-          <button class="correct" onclick=${e => this.ongrade(true, e)}>✔️ CORRECT</button>
-          <button class="incorrect" onclick=${e => this.ongrade(false, e)}>❌️️ INCORRECT</button>
+          <button class="correct" onclick=${e => this.ongrade(true, e)}>👍 CORRECT</button>
+          <button class="incorrect" onclick=${e => this.ongrade(false, e)}>👎 INCORRECT</button>
         </div>
       `)
     }
