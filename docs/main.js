@@ -38,18 +38,27 @@ ${cardsOrCourses(h`
   </section>
 `, h`
   <section class="courses">
-  ${() => Object.keys(model.catalog || {}).map(header => memoizeCourse(model.catalog[header], course => h`
+  ${() => {
+    let courseTitles = Object.keys(model.catalog || {})
+    const enrolledTitles = Object.keys(model.progress || {})
+    if (model.catagory === ENROLLED) {
+      courseTitles = courseTitles.filter(courseTitle => enrolledTitles.indexOf(courseTitle) !== -1)
+    } else if (model.catagory === UNENROLLED) {
+      courseTitles = courseTitles.filter(courseTitle => enrolledTitles.indexOf(courseTitle) === -1)
+    }
+    return courseTitles.map(courseTitle => memoizeCourse(model.catalog[courseTitle], course => h`
     <article class="course">
       <header>
-        <h1>${() => header}</h1>
+        <h1>${() => courseTitle}</h1>
         <h2>${() => course.subhead}</h2>
       </header>
       <section class="supporting">${() => course.supporting}</section>
       <nav>
-        <button onclick=${beginCourse(header)}>BEGIN</button>
+        <button onclick=${beginCourse(courseTitle)}>BEGIN</button>
       </nav>
     </article>
-  `))}
+  `))
+  }}
   </section>
 `)}
 </main>

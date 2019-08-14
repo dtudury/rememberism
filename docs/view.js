@@ -44,7 +44,7 @@ function _calculateCardClasses (title) {
 }
 
 export function cardsHeight () {
-  return `height: calc(72px * ${sortedTitles().length - 1} + 100%);`
+  return `height: calc(72px * ${sortedTitles().length - 1} + 2px + 100%);`
 }
 
 watch(model, () => {
@@ -53,7 +53,7 @@ watch(model, () => {
 }, 'testing')
 
 function sortedTitles () {
-  return Object.keys(model.cards || {}).map(title => {
+  return Object.keys(model.cards || {}).reverse().map(title => {
     return { score: getScore(title), title }
   }).sort((a, b) => {
     return a.score - b.score
