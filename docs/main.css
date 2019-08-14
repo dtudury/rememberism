@@ -106,7 +106,7 @@ section.cards .card.maybe {
 }
 
 section.cards .card.testing {
-  height: fit-content;
+  height: auto;
 }
 
 section.cards .card.unknown {
