@@ -1,4 +1,10 @@
 {
+  "Yoga Sanskrit": {
+    "subhead": "List of words related to basic yoga poses",
+    "supporting": "(from d.com, change) Originally from India, yoga is now a popular practice found all over the globe. Yoga uses the Indian language, Sanskrit, to describe the poses performed on the mat. However; as the practice has become popular in English-speaking countries, English words now accompany the Sanskrit pose names.",
+    "json": "yoga-words/basic.json",
+    "component": "yoga-word"
+  },
   "Pre-K Sight Words": {
     "thumbnail": "",
     "subhead": "The Dolch Pre-primer Sight Words list",

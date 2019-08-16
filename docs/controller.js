@@ -68,7 +68,7 @@ export function ongrade (course, title, isCorrect, e) {
   const now = Date.now()
   if (isCorrect) {
     progress.start = progress.start || now
-    progress.due = Math.round(now + Math.max((now - progress.start) * (1 + Math.sqrt(5)) / 2, 1)) // golden ratio
+    progress.due = Math.round(now + Math.max((now - progress.start) * (1 + Math.sqrt(5)) / 2, 2000)) // golden ratio
     progress.count = (progress.count || 0) + 1
   } else {
     delete progress.start
