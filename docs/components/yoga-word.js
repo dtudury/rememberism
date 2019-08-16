@@ -22,7 +22,7 @@ customElements.define('yoga-word', class extends HTMLElement {
         <style>
           :host {
             background-color: white;
-            grid-template-rows: 40px 1fr auto;
+            grid-template-rows: 28px 1fr auto;
             padding: 16px;
           }
           h1 {
@@ -32,6 +32,8 @@ customElements.define('yoga-word', class extends HTMLElement {
           }
           span {
             display: none;
+            font-size: 14px;
+            color: darkgray;
           }
           :host(.testing) span {
             display: unset;
@@ -51,10 +53,12 @@ customElements.define('yoga-word', class extends HTMLElement {
           :not(.shown).reveal::after {
             content: "∨";
             float: right;
+            transform: scaleX(1.6);
           }
           .shown.reveal::after {
             content: "∧";
             float: right;
+            transform: scaleX(1.6);
           }
           .answer {
             display: none;
@@ -81,7 +85,7 @@ customElements.define('yoga-word', class extends HTMLElement {
           }
         </style>
         <h1>${this.title}</h1>
-        <span class="reveal" tabindex="0" onclick=${e => this.toggleReveal()} onblur=${e => this.unReveal(e)}>answer</span>
+        <span class="reveal" tabindex="0" onclick=${e => this.toggleReveal()} onblur=${e => this.unReveal(e)}>translation</span>
         <div class="answer">
           <h2>${this.card}</h2>
           <div class="actionarea">
