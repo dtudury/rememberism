@@ -17,7 +17,7 @@ customElements.define('yoga-word', class extends HTMLElement {
   }
 
   showCard () {
-    if (this.card && !this._watchedFunction) {
+    if (this.data && !this._watchedFunction) {
       this._watchedFunction = render(this.shadowRoot, h`
         <style>
           :host {
@@ -87,7 +87,7 @@ customElements.define('yoga-word', class extends HTMLElement {
         <h1>${this.title}</h1>
         <span class="reveal" tabindex="0" onclick=${e => this.toggleReveal()} onblur=${e => this.unReveal(e)}>translation</span>
         <div class="answer">
-          <h2>${this.card}</h2>
+          <h2>${this.data}</h2>
           <div class="actionarea">
             <button class="correct" onclick=${e => this.ongrade(true, e)}>👍 CORRECT</button>
             <button class="incorrect" onclick=${e => this.ongrade(false, e)}>👎 INCORRECT</button>

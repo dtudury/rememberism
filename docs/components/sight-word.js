@@ -17,7 +17,7 @@ customElements.define('sight-word', class extends HTMLElement {
   }
 
   showCard () {
-    if (this.card && !this._watchedFunction) {
+    if (this.data && !this._watchedFunction) {
       this._watchedFunction = render(this.shadowRoot, h`
         <style>
           :host {
@@ -62,7 +62,7 @@ customElements.define('sight-word', class extends HTMLElement {
         </style>
         <h1>${this.title}</h1>
         <hr/>
-        <h2>${this.card}</h2>
+        <h2>${this.data}</h2>
         <hr/>
         <div class="actionarea">
           <button class="correct" onclick=${e => this.ongrade(true, e)}>👍 CORRECT</button>

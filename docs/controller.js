@@ -15,7 +15,7 @@ async function _setCourse (course) {
       location = `${location}/${encodeURIComponent(course)}`
       const catalog = await _fetchCatalog()
       await _installComponent(`./components/${catalog[course].component}.js`)
-      model.cards = await _fetchJson(`/courses/${catalog[course].json}`)
+      model.cards = await _fetchCourse(`/courses/${catalog[course].json}`)
       _setTesting(Date.now())
     } else {
       document.title = 'Rememberism'
@@ -94,8 +94,18 @@ async function _fetchJson (path) {
   }
   return _fetchMap.get(path)
 }
+const _fetchCourseMap = new Map()
+async function _fetchCourse (path) {
+  const courseData = await _fetchJson(path)
+  if (!_fetchCourseMap.has(path)) {
+    Object.keys(courseData).forEach(index => {
+      courseData[index] = {data:courseData[index]}
+    })
+    _fetchCourseMap.set(path, courseData)
+  }
+  return _fetchCourseMap.get(path)
+}
 const _fetchCatalog = () => _fetchJson('./catalog.json')
-_fetchCatalog().then(catalog => { model.catalog = catalog })
 
 const _installMap = new Map()
 async function _installComponent (path) {
@@ -122,5 +132,7 @@ const _readHash = () => {
   }
   _setCourse(postSlash && decodeURIComponent(postSlash))
 }
+
 window.addEventListener('load', _readHash)
 window.addEventListener('hashchange', _readHash)
+_fetchCatalog().then(catalog => { model.catalog = catalog })

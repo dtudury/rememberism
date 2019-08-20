@@ -8,9 +8,10 @@ if (savedProgress) {
 } else {
   model.progress = {
     'Pre-K Sight Words': {
-      'Pre-primer word 1': {},
-      'Pre-primer word 2': {},
-      'Pre-primer word 3': {}
+      'Pre-primer word 15': {},
+      'Pre-primer word 31': {},
+      'Pre-primer word 32': {},
+      'Pre-primer word 40': {}
     }
   }
 }
@@ -19,5 +20,7 @@ watch(model.progress, () => {
   console.log(JSON.stringify(model.progress, null, '  '))
   window.localStorage.setItem('progress', JSON.stringify(model.progress, null, '  '))
 })
+
+window.model = model
 
 export default model

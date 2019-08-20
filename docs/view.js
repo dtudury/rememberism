@@ -62,16 +62,20 @@ function sortedTitles () {
 
 export function sortedCards () {
   return h`<main>
-  ${() => sortedTitles().map(title => {
-    const card = model.cards[title]
-    const courseConfig = model.catalog[model.course]
-    return memoizeCard(card, card => h`<${courseConfig.component} 
-      title=${title} 
-      card=${card} 
-      ongrade=${ongrade.bind(null, model.course, title)} 
-      onclick=${() => { model.testing = title }}
-      class=${_calculateCardClasses.bind(null, title)}
-    />`)
-  })}
+  ${() => {
+    const titles = sortedTitles()
+    console.log(titles)
+    return titles.map(title => {
+      const card = model.cards[title]
+      const courseConfig = model.catalog[model.course]
+      return memoizeCard(card, card => h`<${courseConfig.component} 
+        title=${title} 
+        data=${card.data} 
+        ongrade=${ongrade.bind(null, model.course, title)} 
+        onclick=${() => { model.testing = title }}
+        class=${_calculateCardClasses.bind(null, title)}
+      />`)
+    })
+  }}
   </main>`
 }
