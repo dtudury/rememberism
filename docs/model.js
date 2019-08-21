@@ -1,17 +1,19 @@
-import { watch, remodel } from '//unpkg.com/horseless/dist/horseless.esm.js'
-const model = remodel({})
-model.now = Date.now()
+import { watch, remodel } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
+const model = remodel({ catalogs: {}, now: Date.now() })
 
 const savedProgress = window.localStorage.getItem('progress')
 if (savedProgress) {
   model.progress = JSON.parse(savedProgress)
 } else {
   model.progress = {
-    'Pre-K Sight Words': {
-      'Pre-primer word 15': {},
-      'Pre-primer word 31': {},
-      'Pre-primer word 32': {},
-      'Pre-primer word 40': {}
+    './catalogs/sight-words.json': {
+    },
+    './catalogs/yoga-words.json': {
+      'Basic Yoga Sanskrit': {
+        Yoga: {},
+        Namaste: {},
+        Asana: {}
+      }
     }
   }
 }

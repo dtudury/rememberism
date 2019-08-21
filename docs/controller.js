@@ -1,9 +1,10 @@
 /* global fetch */
 import model from './model.js'
+import { watch } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
 import { ENROLLED, UNENROLLED, ALL } from './constants.js'
 
-async function _setCourse (course) {
-  let location = model.catagory
+export async function setCourse (course) {
+  let location = `#${encodeURIComponent(model.catalog)}`
   if (course) {
     location = `${location}/${encodeURIComponent(course)}`
   }
@@ -12,10 +13,9 @@ async function _setCourse (course) {
     if (course) {
       document.title = course
       model.course = course
-      location = `${location}/${encodeURIComponent(course)}`
-      const catalog = await _fetchCatalog()
+      const catalog = await _installCatalog(course)
       await _installComponent(`./components/${catalog[course].component}.js`)
-      model.cards = await _fetchCourse(`/courses/${catalog[course].json}`)
+      model.cards = await _getCourse(`/courses/${catalog[course].json}`)
       _setTesting(Date.now())
     } else {
       document.title = 'Rememberism'
@@ -53,12 +53,12 @@ function _setTesting (now) {
   model.testing = bestTitle
 }
 
-export function beginCourse (course) {
-  return e => _setCourse(course)
+export function beginCourse (catalog, course) {
+  return e => setCourse(course)
 }
 
 export function leaveCourse () {
-  _setCourse(null)
+  setCourse(null)
 }
 
 export function ongrade (course, title, isCorrect, e) {
@@ -88,24 +88,32 @@ const _courseMap = new Map()
 export const memoizeCourse = (v, f) => memoize(_courseMap, v, f)
 
 const _fetchMap = new Map()
-async function _fetchJson (path) {
+async function _fetchJson (path, initialize) {
   if (!_fetchMap.has(path)) {
-    _fetchMap.set(path, fetch(path).then(res => res.json()))
+    _fetchMap.set(path, fetch(path).then(res => res.json()).then(obj => {
+      if (initialize) {
+        initialize(obj)
+      }
+      return obj
+    }))
   }
   return _fetchMap.get(path)
 }
-const _fetchCourseMap = new Map()
-async function _fetchCourse (path) {
-  const courseData = await _fetchJson(path)
-  if (!_fetchCourseMap.has(path)) {
-    Object.keys(courseData).forEach(index => {
-      courseData[index] = {data:courseData[index]}
+async function _installCatalog (path) {
+  model.catalogs[path] = await _fetchJson(path, catalogData => {
+    const courses = catalogData.courses
+    Object.keys(courses).forEach(name => {
+      const course = courses[name]
+      Object.keys(course).forEach(index => {
+        course[index] = { data: course[index] } // force this to be an object (strings won't work)
+      })
     })
-    _fetchCourseMap.set(path, courseData)
-  }
-  return _fetchCourseMap.get(path)
+  })
 }
-const _fetchCatalog = () => _fetchJson('./catalog.json')
+async function _uninstallCatalog (path) {
+  delete model.catalogs[path]
+  _fetchMap.delete(path)
+}
 
 const _installMap = new Map()
 async function _installComponent (path) {
@@ -124,15 +132,22 @@ const _readHash = () => {
     postSlash = document.location.hash.substring(slashIndex + 1)
   }
   if (preSlash === UNENROLLED) {
-    model.catagory = UNENROLLED
+    model.catalog = UNENROLLED
   } else if (preSlash === ALL) {
-    model.catagory = ALL
+    model.catalog = ALL
   } else {
-    model.catagory = ENROLLED
+    model.catalog = ENROLLED
   }
-  _setCourse(postSlash && decodeURIComponent(postSlash))
+  setCourse(postSlash && decodeURIComponent(postSlash))
 }
 
 window.addEventListener('load', _readHash)
 window.addEventListener('hashchange', _readHash)
-_fetchCatalog().then(catalog => { model.catalog = catalog })
+function catalogInstaller () {
+  Object.keys(model.progress).forEach(catalogPath => {
+    console.log('catalogPath', catalogPath)
+    _fetchJson(catalogPath).then(catalog => model.catalogs[catalogPath] = catalog)
+  })
+}
+watch(model.progress, catalogInstaller)
+catalogInstaller()

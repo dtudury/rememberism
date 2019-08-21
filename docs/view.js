@@ -1,5 +1,5 @@
 import model from './model.js'
-import { h, watch } from '//unpkg.com/horseless/dist/horseless.esm.js'
+import { h, watch } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
 import { ongrade, getScore } from './controller.js'
 
 export function memoize (map, v, f) {

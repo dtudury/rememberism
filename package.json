@@ -18,6 +18,6 @@
   "homepage": "https://github.com/dtudury/rememberism#readme",
   "devDependencies": {
     "serve": "^11.1.0",
-    "standard": "^13.1.0"
+    "standard": "^14.0.0"
   }
 }

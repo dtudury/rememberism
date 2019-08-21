@@ -1,0 +1,45 @@
+{
+  "cardComponentName": "yoga-word",
+  "cardComponentPath": "components/yoga-word.js",
+  "name": "Yoga Words",
+  "courses": {
+    "Basic Yoga Sanskrit": {
+      "subhead": "List of words related to basic yoga poses",
+      "supporting": "from d.com (change): Originally from India, yoga is now a popular practice found all over the globe. Yoga uses the Indian language, Sanskrit, to describe the poses performed on the mat. However; as the practice has become popular in English-speaking countries, English words now accompany the Sanskrit pose names.",
+      "cards": {
+        "Yoga": "to yoke or join",
+        "Namaste": "I bow to you",
+        "Asana": "pose, posture or seat",
+        "Tada": "mountain",
+        "Tadasana": "mountain pose",
+        "Nava": "boat",
+        "Navasana": "boat pose",
+        "Pari": "fully",
+        "Purna": "filled",
+        "Paripurna": "full",
+        "Paripurna navasana": "full boat pose",
+        "Dhanura": "bow",
+        "Dhanurasana": "bow pose",
+        "Bhujanga": "snake or cobra",
+        "Bhujangasana": "cobra pose",
+        "Shava": "corpse",
+        "Shavasana": "corpse pose",
+        "Bala": "child",
+        "Balasana": "child's pose",
+        "Ananda": "happiness",
+        "Ananda balasana": "happy baby pose",
+        "Adho": "downward",
+        "Mukha": "face",
+        "Svana": "dog",
+        "Adho mukha shvanasana": "downward dog",
+        "Ardha": "half",
+        "Chandra": "moon",
+        "Ardha chandrasana": "half moon pose",
+        "Matsya": "fish",
+        "Matsyasana": "fish pose",
+        "Hanuman": "divine entity in Hinduism who resembles a monkey",
+        "Hanumanasana": "monkey pose"
+      }
+    }
+  }
+}
