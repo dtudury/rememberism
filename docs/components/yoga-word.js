@@ -1,7 +1,7 @@
-/* global customElements HTMLElement */
-import { h, render, unwatchFunction } from '//unpkg.com/horseless/dist/horseless.esm.js'
+/* global HTMLElement */
+import { h, render, unwatchFunction } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
 
-customElements.define('yoga-word', class extends HTMLElement {
+export default class extends HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
@@ -109,4 +109,4 @@ customElements.define('yoga-word', class extends HTMLElement {
       this.shadowRoot.querySelector('.reveal').classList.remove('shown')
     }, 100) // gross
   }
-})
+}

@@ -1,14 +1,13 @@
-import { h, render } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
-import model from './model.js'
-import { cardsOrCourses, mayBeSelected, memoizeCourse, sortedCards, cardsHeight } from './view.js'
-import { encodeHash } from './controller.js'
+import { h, render, watchFunction } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
+import model, { sortedTitles } from './model.js'
+import { cardsOrCourses, mayBeSelected, sortedCards, cardsHeight } from './view.js'
+import { setCourse } from './controller.js'
 
 navigator.serviceWorker.register('/sw.js')
 
 function courseListElements (catalog, catalogPath) {
   return Object.keys(catalog.courses || {}).map(courseName => {
-    const href = encodeHash(catalogPath, courseName)
-    return h`<li><a class=${mayBeSelected(href)} href=${href}>${courseName}</a></li>`
+    return h`<li><a class=${mayBeSelected(catalogPath, courseName)} onclick=${() => setCourse(catalogPath, courseName)}>${courseName}</a></li>`
   })
 }
 
@@ -34,9 +33,8 @@ ${() => Object.keys(model.progress).map(catalogPath => {
     </li>
 ${() => Object.keys(model.catalogs).map(catalogPath => {
   const catalog = model.catalogs[catalogPath]
-  const href = encodeHash(catalogPath)
   return h`
-    <li><a class=${mayBeSelected(href)} href=${href}>${() => catalog.name}</a>
+    <li><a class=${mayBeSelected(catalogPath, false)} onclick=${() => setCourse(catalogPath, false)}>${() => catalog.name}</a>
       <ul>${() => courseListElements(catalog, catalogPath)}</ul>
     </li>`
 })}
@@ -61,3 +59,8 @@ ${() => {
   Copyright Info
 </footer>
 `)
+
+watchFunction(() => {
+  const index = sortedTitles().indexOf(model.testing)
+  document.querySelector('main.app').scrollTo({ top: index * 72 + 5, left: 0, behavior: 'smooth' })
+})
