@@ -9,14 +9,32 @@ if (savedProgress) {
     './catalogs/sight-words.json': {
     },
     './catalogs/yoga-words.json': {
-      'Basic Yoga Sanskrit': {
-        Yoga: {},
-        Namaste: {},
-        Asana: {}
+      courses: {
+        'Basic Yoga Sanskrit': {
+          Yoga: {},
+          Namaste: {},
+          Asana: {}
+        }
       }
     }
   }
 }
+model.catalogPath = false
+model.courseName = false
+Object.keys(model.progress).some(catalogPath => {
+  const catalog = model.progress[catalogPath]
+  if (catalog.courses) {
+    return Object.keys(catalog.courses).some(courseName => {
+      if (courseName) {
+        model.catalogPath = catalogPath
+        model.courseName = courseName
+        return true
+      }
+      return false
+    })
+  }
+  return false
+})
 
 watch(model.progress, () => {
   console.log(JSON.stringify(model.progress, null, '  '))

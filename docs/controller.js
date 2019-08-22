@@ -1,9 +1,11 @@
 /* global fetch */
 import model from './model.js'
-import { watch } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
-import { ENROLLED, UNENROLLED, ALL } from './constants.js'
+import { watchFunction } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
 
-export async function setCourse (course) {
+export async function setCourse (catalogPath, courseName) {
+  model.catalogPath = catalogPath
+  model.courseName = courseName
+  /*
   let location = `#${encodeURIComponent(model.catalog)}`
   if (course) {
     location = `${location}/${encodeURIComponent(course)}`
@@ -24,11 +26,28 @@ export async function setCourse (course) {
       model.testing = null
     }
   }
+  */
 }
+_setFromHash()
+watchFunction(() => {
+  let hash = encodeHash(model.catalogPath, model.courseName)
+  if (document.location.hash !== hash) {
+    document.location.hash = hash
+    const catalog = model.catalogPath && model.catalogs[model.catalogPath]
+    _setTesting(Date.now())
+    if (model.courseName) {
+      document.title = model.courseName
+    } else if (catalog) {
+      document.title = model.catalogs[model.catalogPath].name
+    } else {
+      document.title = 'Rememberism'
+    }
+  }
+})
 
 export function getScore (title) {
-  const courseProgress = model.progress[model.course]
-  const progress = courseProgress && courseProgress[title]
+  const course = model.progress[model.courseName]
+  const progress = course && course[title]
   if (progress) {
     if (!progress.due || !progress.start) {
       return 0
@@ -53,18 +72,17 @@ function _setTesting (now) {
   model.testing = bestTitle
 }
 
-export function beginCourse (catalog, course) {
-  return e => setCourse(course)
+export function beginCourse (catalogPath, courseName) {
+  return e => setCourse(catalogPath, courseName)
 }
 
-export function leaveCourse () {
-  setCourse(null)
-}
-
-export function ongrade (course, title, isCorrect, e) {
+export function ongrade (catalogPath, courseName, title, isCorrect, e) {
   e.stopPropagation()
-  const courseProgress = model.progress[course] = (model.progress[course] || {})
-  const progress = courseProgress[title] = (courseProgress[title] || {})
+  const catalog = model.progress[catalogPath] = (model.progress[catalogPath] || {})
+  const courses = catalog.courses = (catalog.courses || {})
+  const course = courses[courseName] = (courses[courseName] || {})
+  const cards = course.cards = (course.cards || {})
+  const progress = cards[title] = (cards[title] || {})
   const now = Date.now()
   if (isCorrect) {
     progress.start = progress.start || now
@@ -99,55 +117,49 @@ async function _fetchJson (path, initialize) {
   }
   return _fetchMap.get(path)
 }
-async function _installCatalog (path) {
-  model.catalogs[path] = await _fetchJson(path, catalogData => {
-    const courses = catalogData.courses
-    Object.keys(courses).forEach(name => {
-      const course = courses[name]
-      Object.keys(course).forEach(index => {
-        course[index] = { data: course[index] } // force this to be an object (strings won't work)
+
+export function encodeHash (catalogPath, courseName) {
+  if (catalogPath) {
+    const hash = `#${encodeURIComponent(catalogPath)}`
+    if (courseName) {
+      return `${hash}/${encodeURIComponent(courseName)}`
+    }
+    return hash
+  }
+  return ''
+}
+
+export function decodeHash (hash) {
+  let preSlash = hash.substr(1)
+  let postSlash = ''
+  const slashIndex = preSlash.indexOf('/')
+  if (slashIndex !== -1) {
+    postSlash = preSlash.substring(slashIndex + 1)
+    preSlash = preSlash.substring(0, slashIndex)
+  }
+  return { catalogPath: decodeURIComponent(preSlash) || false, courseName: decodeURIComponent(postSlash) || false }
+}
+
+function _setFromHash () {
+  const { catalogPath, courseName } = decodeHash(document.location.hash)
+  setCourse(catalogPath, courseName)
+}
+
+window.addEventListener('load', _setFromHash)
+window.addEventListener('hashchange', _setFromHash)
+
+watchFunction(() => {
+  Object.keys(model.progress).forEach(catalogPath => {
+    _fetchJson(catalogPath, catalog => {
+      const courses = catalog.courses
+      Object.keys(courses).forEach(courseName => {
+        const cards = courses[courseName].cards
+        Object.keys(cards).forEach(index => {
+          cards[index] = { data: cards[index] } // force this to be an object (strings won't work)
+        })
       })
+    }).then(catalog => {
+      model.catalogs[catalogPath] = catalog
     })
   })
-}
-async function _uninstallCatalog (path) {
-  delete model.catalogs[path]
-  _fetchMap.delete(path)
-}
-
-const _installMap = new Map()
-async function _installComponent (path) {
-  if (!_installMap.has(path)) {
-    _installMap.set(path, import(path))
-  }
-  return _installMap.get(path)
-}
-
-const _readHash = () => {
-  const slashIndex = document.location.hash.indexOf('/')
-  let preSlash = document.location.hash
-  let postSlash
-  if (slashIndex !== -1) {
-    preSlash = document.location.hash.substring(0, slashIndex)
-    postSlash = document.location.hash.substring(slashIndex + 1)
-  }
-  if (preSlash === UNENROLLED) {
-    model.catalog = UNENROLLED
-  } else if (preSlash === ALL) {
-    model.catalog = ALL
-  } else {
-    model.catalog = ENROLLED
-  }
-  setCourse(postSlash && decodeURIComponent(postSlash))
-}
-
-window.addEventListener('load', _readHash)
-window.addEventListener('hashchange', _readHash)
-function catalogInstaller () {
-  Object.keys(model.progress).forEach(catalogPath => {
-    console.log('catalogPath', catalogPath)
-    _fetchJson(catalogPath).then(catalog => model.catalogs[catalogPath] = catalog)
-  })
-}
-watch(model.progress, catalogInstaller)
-catalogInstaller()
+})

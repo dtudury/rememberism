@@ -1,6 +1,8 @@
 {
-  "cardComponentName": "sight-word",
-  "cardComponentPath": "components/sight-word.js",
+  "cardComponent": {
+    "name": "sight-word",
+    "path": "./components/sight-word.js"
+  },
   "name": "Sight Words",
   "courses": {
     "Kindergarten Sight Word List": {

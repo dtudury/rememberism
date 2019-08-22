@@ -1,10 +1,16 @@
 import { h, render } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
-import { ENROLLED, UNENROLLED, ALL } from './constants.js'
 import model from './model.js'
 import { cardsOrCourses, mayBeSelected, memoizeCourse, sortedCards, cardsHeight } from './view.js'
-import { setCourse } from './controller.js'
+import { encodeHash } from './controller.js'
 
 navigator.serviceWorker.register('/sw.js')
+
+function courseListElements (catalog, catalogPath) {
+  return Object.keys(catalog.courses || {}).map(courseName => {
+    const href = encodeHash(catalogPath, courseName)
+    return h`<li><a class=${mayBeSelected(href)} href=${href}>${courseName}</a></li>`
+  })
+}
 
 render(document.body, h`
 <header class="app">
@@ -19,54 +25,33 @@ render(document.body, h`
 
 <nav class="app">
   <ul>
-    <li><a class=${mayBeSelected} href=${ENROLLED}>enrolled</a></li>
-    <li><a class=${mayBeSelected} href=${UNENROLLED}>unenrolled</a></li>
-    <li><a class=${mayBeSelected} href=${ALL}>all courses</a></li>
-${() => {
-  console.log(model.catalogs)
-  Object.keys(model.catalogs).map(catalogPath => {
-    const catalog = model.catalogs[catalogPath]
-    console.log(catalogPath)
-    Object.keys(catalog.courses).map(courseName => {
-      console.log(courseName)
-    })
-  })
-  return h`<span>what</span>`
-}}
+    <li><a href="#enrolled">enrolled</a>
+      <ul>
+${() => Object.keys(model.progress).map(catalogPath => {
+  return courseListElements(model.progress[catalogPath], catalogPath)
+})}
+      </ul>
+    </li>
+${() => Object.keys(model.catalogs).map(catalogPath => {
+  const catalog = model.catalogs[catalogPath]
+  const href = encodeHash(catalogPath)
+  return h`
+    <li><a class=${mayBeSelected(href)} href=${href}>${() => catalog.name}</a>
+      <ul>${() => courseListElements(catalog, catalogPath)}</ul>
+    </li>`
+})}
   </ul>
 </nav>
 
 <main class="app">
 ${cardsOrCourses(h`
   <section class="cards" style=${cardsHeight}>
-    <header>
-      <span class="backbutton" onclick=${() => { setCourse() }}>⬅</span>
-      ${() => model.course}
-    </header>
     ${sortedCards}
   </section>
 `, h`
   <section class="courses">
 ${() => {
-  let courseTitles = Object.keys(model.catalog || {})
-  const enrolledTitles = Object.keys(model.progress || {})
-  if (model.catagory === ENROLLED) {
-    courseTitles = courseTitles.filter(courseTitle => enrolledTitles.indexOf(courseTitle) !== -1)
-  } else if (model.catagory === UNENROLLED) {
-    courseTitles = courseTitles.filter(courseTitle => enrolledTitles.indexOf(courseTitle) === -1)
-  }
-  return courseTitles.map(courseTitle => memoizeCourse(model.catalog[courseTitle], course => h`
-    <article class="course">
-      <header>
-        <h1>${() => courseTitle}</h1>
-        <h2>${() => course.subhead}</h2>
-      </header>
-      <section class="supporting">${() => course.supporting}</section>
-      <nav>
-        <button onclick=${() => { setCourse(model.catagory, courseTitle) }}>▶ BEGIN</button>
-      </nav>
-    </article>
-  `))
+  return []
 }}
   </section>
 `)}

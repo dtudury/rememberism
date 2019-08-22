@@ -1,6 +1,8 @@
 {
-  "cardComponentName": "yoga-word",
-  "cardComponentPath": "components/yoga-word.js",
+  "cardComponent": {
+    "name": "yoga-word",
+    "path": "./components/yoga-word.js"
+  },
   "name": "Yoga Words",
   "courses": {
     "Basic Yoga Sanskrit": {
