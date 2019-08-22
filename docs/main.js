@@ -1,13 +1,13 @@
 import { h, render, watchFunction } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
 import model, { sortedTitles } from './model.js'
-import { cardsOrCourses, mayBeSelected, sortedCards, cardsHeight } from './view.js'
+import { cardsOrCourses, selectableLink, sortedCards, cardsHeight } from './view.js'
 import { setCourse } from './controller.js'
 
 navigator.serviceWorker.register('/sw.js')
 
-function courseListElements (catalog, catalogPath) {
+function menuCourseLinks (catalog, catalogPath, enrolled) {
   return Object.keys(catalog.courses || {}).map(courseName => {
-    return h`<li><a class=${mayBeSelected(catalogPath, courseName)} onclick=${() => setCourse(catalogPath, courseName)}>${courseName}</a></li>`
+    return h`<a class=${selectableLink(catalogPath, courseName, enrolled)} onclick=${() => setCourse(catalogPath, courseName, enrolled)}>${courseName}</a>`
   })
 }
 
@@ -23,22 +23,16 @@ render(document.body, h`
 </header>
 
 <nav class="app">
-  <ul>
-    <li><a href="#enrolled">enrolled</a>
-      <ul>
+  <a href="#enrolled">enrolled</a>
 ${() => Object.keys(model.progress).map(catalogPath => {
-  return courseListElements(model.progress[catalogPath], catalogPath)
+  return menuCourseLinks(model.progress[catalogPath], catalogPath, true)
 })}
-      </ul>
-    </li>
 ${() => Object.keys(model.catalogs).map(catalogPath => {
   const catalog = model.catalogs[catalogPath]
   return h`
-    <li><a class=${mayBeSelected(catalogPath, false)} onclick=${() => setCourse(catalogPath, false)}>${() => catalog.name}</a>
-      <ul>${() => courseListElements(catalog, catalogPath)}</ul>
-    </li>`
+  <a class=${selectableLink(catalogPath, false)} onclick=${() => setCourse(catalogPath, false)}>${() => catalog.name}</a>
+  ${() => menuCourseLinks(catalog, catalogPath)}`
 })}
-  </ul>
 </nav>
 
 <main class="app">

@@ -60,6 +60,10 @@ nav.app a.selected {
   background-color: whitesmoke;
 }
 
+nav.app .course-link {
+  padding: 4px 4px 4px 32px;
+}
+
 main.app {
   grid-column: 2/4;
   grid-row: 2/3;

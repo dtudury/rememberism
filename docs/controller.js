@@ -9,7 +9,8 @@ function _setTesting (now) {
   let bestScore
   sorted.forEach(title => {
     const score = getScore(title)
-    // set last unknown card or first maybe card (only time probably card is set is if it's the first card)
+    // set the last unknown card or the first maybe card
+    // (the only time a probably card is set is if it's the first card because there's no non-probably cards)
     if ((bestScore === undefined || bestScore < 0) && score < 1) {
       bestTitle = title
       bestScore = score
@@ -32,7 +33,7 @@ async function _fetchJson (path, initialize) {
 }
 
 function _installCatalog (catalogPath) {
-  if (!model.catalogs[catalogPath]) {
+  if (catalogPath && !model.catalogs[catalogPath]) {
     _fetchJson(catalogPath, catalog => {
       const courses = catalog.courses
       Object.keys(courses).forEach(courseName => {
@@ -49,7 +50,11 @@ function _installCatalog (catalogPath) {
 
 function _setFromHash () {
   const { catalogPath, courseName } = decodeHash(document.location.hash)
-  setCourse(catalogPath, courseName)
+  if (catalogPath === model.catalogPath && courseName === model.courseName) {
+    setCourse(catalogPath, courseName, model.enrolled)
+  } else {
+    setCourse(catalogPath, courseName)
+  }
 }
 
 window.addEventListener('load', _setFromHash)
@@ -68,7 +73,7 @@ watchFunction(() => {
   if (document.location.hash !== hash) {
     document.location.hash = hash
     const { catalog } = getReferences()
-    const catalogTitle = catalog.name
+    const catalogTitle = catalog && catalog.name
     document.title = model.courseName || catalogTitle || 'Rememberism'
     _setTesting(Date.now())
   }
@@ -100,9 +105,10 @@ watchFunction(() => {
   }
 })
 
-export async function setCourse (catalogPath, courseName) {
+export async function setCourse (catalogPath, courseName, enrolled) {
   model.catalogPath = catalogPath
   model.courseName = courseName
+  model.enrolled = enrolled
 }
 
 export function ongrade (catalogPath, courseName, title, isCorrect, e) {

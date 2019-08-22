@@ -39,9 +39,16 @@ async function _installComponent (component) {
   return _installMap.get(component)
 }
 
-export function mayBeSelected (catalogPath, courseName) {
+export function selectableLink (catalogPath, courseName, enrolled) {
   return () => {
-    return (model.catalogPath === catalogPath && model.courseName === courseName) ? 'selected' : ''
+    const classes = []
+    if (courseName) {
+      classes.push('course-link')
+    }
+    if (model.catalogPath === catalogPath && model.courseName === courseName && model.enrolled === enrolled) {
+      classes.push('selected')
+    }
+    return classes.join(' ')
   }
 }
 
