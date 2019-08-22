@@ -1,11 +1,6 @@
 /* global fetch */
-import model, { getReferences, getScore, sortedTitles } from './model.js'
+import model, { getReferences, getScore, sortedTitles, decodeHash, encodeHash } from './model.js'
 import { watchFunction } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
-
-export async function setCourse (catalogPath, courseName) {
-  model.catalogPath = catalogPath
-  model.courseName = courseName
-}
 
 function _setTesting (now) {
   model.now = now
@@ -14,32 +9,13 @@ function _setTesting (now) {
   let bestScore
   sorted.forEach(title => {
     const score = getScore(title)
+    // set last unknown card or first maybe card (only time probably card is set is if it's the first card)
     if ((bestScore === undefined || bestScore < 0) && score < 1) {
       bestTitle = title
       bestScore = score
     }
   })
   model.testing = bestTitle
-}
-
-export function ongrade (catalogPath, courseName, title, isCorrect, e) {
-  e.stopPropagation()
-  const catalog = model.progress[catalogPath] = (model.progress[catalogPath] || {})
-  const courses = catalog.courses = (catalog.courses || {})
-  const course = courses[courseName] = (courses[courseName] || {})
-  const cards = course.cards = (course.cards || {})
-  const progress = cards[title] = (cards[title] || {})
-  const now = Date.now()
-  if (isCorrect) {
-    progress.start = progress.start || now
-    progress.due = Math.round(now + Math.max((now - progress.start) * (1 + Math.sqrt(5)) / 2, 2000)) // golden ratio
-    progress.count = (progress.count || 0) + 1
-  } else {
-    delete progress.start
-    delete progress.due
-    delete progress.count
-  }
-  _setTesting(now)
 }
 
 const _fetchMap = new Map()
@@ -55,32 +31,7 @@ async function _fetchJson (path, initialize) {
   return _fetchMap.get(path)
 }
 
-export function encodeHash (catalogPath, courseName) {
-  if (catalogPath) {
-    const hash = `#${encodeURIComponent(catalogPath)}`
-    if (courseName) {
-      return `${hash}/${encodeURIComponent(courseName)}`
-    }
-    return hash
-  }
-  return ''
-}
-
-export function decodeHash (hash) {
-  let preSlash = hash.substr(1)
-  let postSlash = ''
-  const slashIndex = preSlash.indexOf('/')
-  if (slashIndex !== -1) {
-    postSlash = preSlash.substring(slashIndex + 1)
-    preSlash = preSlash.substring(0, slashIndex)
-  }
-  return {
-    catalogPath: decodeURIComponent(preSlash) || false,
-    courseName: decodeURIComponent(postSlash) || false
-  }
-}
-
-function installCatalog (catalogPath) {
+function _installCatalog (catalogPath) {
   if (!model.catalogs[catalogPath]) {
     _fetchJson(catalogPath, catalog => {
       const courses = catalog.courses
@@ -107,8 +58,8 @@ _setFromHash()
 
 // install any missing catalogs
 watchFunction(() => {
-  Object.keys(model.progress).forEach(installCatalog)
-  installCatalog(model.catalogPath)
+  Object.keys(model.progress).forEach(_installCatalog)
+  _installCatalog(model.catalogPath)
 })
 
 // update hash and title based on catalogPath and courseName
@@ -148,3 +99,28 @@ watchFunction(() => {
     _setTesting(Date.now())
   }
 })
+
+export async function setCourse (catalogPath, courseName) {
+  model.catalogPath = catalogPath
+  model.courseName = courseName
+}
+
+export function ongrade (catalogPath, courseName, title, isCorrect, e) {
+  e.stopPropagation()
+  const catalog = model.progress[catalogPath] = (model.progress[catalogPath] || {})
+  const courses = catalog.courses = (catalog.courses || {})
+  const course = courses[courseName] = (courses[courseName] || {})
+  const cards = course.cards = (course.cards || {})
+  const progress = cards[title] = (cards[title] || {})
+  const now = Date.now()
+  if (isCorrect) {
+    progress.start = progress.start || now
+    progress.due = Math.round(now + Math.max((now - progress.start) * (1 + Math.sqrt(5)) / 2, 2000)) // golden ratio
+    progress.count = (progress.count || 0) + 1
+  } else {
+    delete progress.start
+    delete progress.due
+    delete progress.count
+  }
+  _setTesting(now)
+}

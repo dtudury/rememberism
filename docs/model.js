@@ -30,6 +30,8 @@ watchFunction(() => {
   window.localStorage.setItem('progress', JSON.stringify(model.progress, null, '  '))
 })
 
+window.model = model
+
 export function getReferences () {
   const references = {}
   references.catalog = model.catalogPath && model.catalogs[model.catalogPath]
@@ -67,6 +69,29 @@ export function sortedTitles () {
   return []
 }
 
-window.model = model
+export function encodeHash (catalogPath, courseName) {
+  if (catalogPath) {
+    const hash = `#${encodeURIComponent(catalogPath)}`
+    if (courseName) {
+      return `${hash}/${encodeURIComponent(courseName)}`
+    }
+    return hash
+  }
+  return ''
+}
+
+export function decodeHash (hash) {
+  let preSlash = hash.substr(1)
+  let postSlash = ''
+  const slashIndex = preSlash.indexOf('/')
+  if (slashIndex !== -1) {
+    postSlash = preSlash.substring(slashIndex + 1)
+    preSlash = preSlash.substring(0, slashIndex)
+  }
+  return {
+    catalogPath: decodeURIComponent(preSlash) || false,
+    courseName: decodeURIComponent(postSlash) || false
+  }
+}
 
 export default model

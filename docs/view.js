@@ -11,23 +11,7 @@ function _memoize (map, v, f) {
   return map.get(v)
 }
 const _cardMap = new Map()
-export const memoizeCard = (v, f) => _memoize(_cardMap, v, f)
-
-export function mayBeSelected (catalogPath, courseName) {
-  return () => {
-    return (model.catalogPath === catalogPath && model.courseName === courseName) ? 'selected' : ''
-  }
-}
-
-export function cardsOrCourses (cards, courses) {
-  return () => {
-    if (model.courseName) {
-      return cards
-    } else {
-      return courses
-    }
-  }
-}
+const _memoizeCard = (v, f) => _memoize(_cardMap, v, f)
 
 function _calculateCardClasses (title) {
   const classes = ['card']
@@ -45,10 +29,6 @@ function _calculateCardClasses (title) {
   return classes.join(' ')
 }
 
-export function cardsHeight () {
-  return `height: calc(72px * ${sortedTitles().length - 1} + 5px + 100%);`
-}
-
 const _installMap = new Map()
 async function _installComponent (component) {
   if (!_installMap.has(component)) {
@@ -57,6 +37,26 @@ async function _installComponent (component) {
     }))
   }
   return _installMap.get(component)
+}
+
+export function mayBeSelected (catalogPath, courseName) {
+  return () => {
+    return (model.catalogPath === catalogPath && model.courseName === courseName) ? 'selected' : ''
+  }
+}
+
+export function cardsOrCourses (cards, courses) {
+  return () => {
+    if (model.courseName) {
+      return cards
+    } else {
+      return courses
+    }
+  }
+}
+
+export function cardsHeight () {
+  return `height: calc(72px * ${sortedTitles().length - 1} + 5px + 100%);`
 }
 
 export function sortedCards () {
@@ -69,7 +69,7 @@ export function sortedCards () {
       const card = course.cards[title]
       const component = card.data.component || course.component || catalog.cardComponent
       _installComponent(component)
-      return memoizeCard(card, card => h`<${component.name}
+      return _memoizeCard(card, card => h`<${component.name}
       title=${title} 
       data=${card.data} 
       ongrade=${ongrade.bind(null, model.catalogPath, model.courseName, title)} 
