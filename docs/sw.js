@@ -1,7 +1,7 @@
 /* global self caches fetch */
 
 const CACHE_NAME = 'rememberism-cache-v1'
-const HORSELESS_VERSION = '//unpkg.com/horseless@0.0.12/dist/horseless.esm.js'
+const HORSELESS_VERSION = '//unpkg.com/horseless@0.0.16/dist/horseless.esm.js'
 
 self.addEventListener('install', (evt) => {
   console.log('[ServiceWorker] Install')

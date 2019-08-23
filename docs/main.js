@@ -1,10 +1,15 @@
-import { h, render } from '//unpkg.com/horseless/dist/horseless.esm.js'
-import { ENROLLED, UNENROLLED, ALL } from './constants.js'
-import model from './model.js'
-import { cardsOrCourses, mayBeSelected, memoizeCourse, sortedCards, cardsHeight } from './view.js'
-import { beginCourse, leaveCourse } from './controller.js'
+import { h, render, watchFunction } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
+import model, { sortedTitles } from './model.js'
+import { cardsOrCourses, selectableLink, sortedCards, cardsHeight } from './view.js'
+import { setCourse } from './controller.js'
 
 navigator.serviceWorker.register('/sw.js')
+
+function menuCourseLinks (catalog, catalogPath, enrolled) {
+  return Object.keys(catalog.courses || {}).map(courseName => {
+    return h`<a class=${selectableLink(catalogPath, courseName, enrolled)} onclick=${() => setCourse(catalogPath, courseName, enrolled)}>${courseName}</a>`
+  })
+}
 
 render(document.body, h`
 <header class="app">
@@ -18,43 +23,28 @@ render(document.body, h`
 </header>
 
 <nav class="app">
-  <a class=${mayBeSelected} href=${ENROLLED}>enrolled</a>
-  <a class=${mayBeSelected} href=${UNENROLLED}>unenrolled</a>
-  <a class=${mayBeSelected} href=${ALL}>all courses</a>
+  <a href="#enrolled">enrolled</a>
+${() => Object.keys(model.progress).map(catalogPath => {
+  return menuCourseLinks(model.progress[catalogPath], catalogPath, true)
+})}
+${() => Object.keys(model.catalogs).map(catalogPath => {
+  const catalog = model.catalogs[catalogPath]
+  return h`
+  <a class=${selectableLink(catalogPath, false)} onclick=${() => setCourse(catalogPath, false)}>${() => catalog.name}</a>
+  ${() => menuCourseLinks(catalog, catalogPath)}`
+})}
 </nav>
 
 <main class="app">
 ${cardsOrCourses(h`
   <section class="cards" style=${cardsHeight}>
-    <header>
-      <span class="backbutton" onclick=${leaveCourse}>⬅</span>
-      ${() => model.course}
-    </header>
     ${sortedCards}
   </section>
 `, h`
   <section class="courses">
-  ${() => {
-    let courseTitles = Object.keys(model.catalog || {})
-    const enrolledTitles = Object.keys(model.progress || {})
-    if (model.catagory === ENROLLED) {
-      courseTitles = courseTitles.filter(courseTitle => enrolledTitles.indexOf(courseTitle) !== -1)
-    } else if (model.catagory === UNENROLLED) {
-      courseTitles = courseTitles.filter(courseTitle => enrolledTitles.indexOf(courseTitle) === -1)
-    }
-    return courseTitles.map(courseTitle => memoizeCourse(model.catalog[courseTitle], course => h`
-    <article class="course">
-      <header>
-        <h1>${() => courseTitle}</h1>
-        <h2>${() => course.subhead}</h2>
-      </header>
-      <section class="supporting">${() => course.supporting}</section>
-      <nav>
-        <button onclick=${beginCourse(courseTitle)}>▶ BEGIN</button>
-      </nav>
-    </article>
-  `))
-  }}
+${() => {
+  return []
+}}
   </section>
 `)}
 </main>
@@ -63,3 +53,8 @@ ${cardsOrCourses(h`
   Copyright Info
 </footer>
 `)
+
+watchFunction(() => {
+  const index = sortedTitles().indexOf(model.testing)
+  document.querySelector('main.app').scrollTo({ top: index * 72 + 5, left: 0, behavior: 'smooth' })
+})

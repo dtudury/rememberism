@@ -1,31 +1,17 @@
-import model from './model.js'
-import { h, watch } from '//unpkg.com/horseless/dist/horseless.esm.js'
-import { ongrade, getScore } from './controller.js'
+/* global customElements */
 
-export function memoize (map, v, f) {
+import model, { sortedTitles, getScore } from './model.js'
+import { h } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
+import { ongrade } from './controller.js'
+
+function _memoize (map, v, f) {
   if (!map.has(v)) {
     map.set(v, f(v))
   }
   return map.get(v)
 }
-const _courseMap = new Map()
-export const memoizeCourse = (v, f) => memoize(_courseMap, v, f)
 const _cardMap = new Map()
-export const memoizeCard = (v, f) => memoize(_cardMap, v, f)
-
-export function mayBeSelected (el) {
-  return (model.catagory === el.hash) ? 'selected' : ''
-}
-
-export function cardsOrCourses (cards, courses) {
-  return () => {
-    if (model.course) {
-      return cards
-    } else {
-      return courses
-    }
-  }
-}
+const _memoizeCard = (v, f) => _memoize(_cardMap, v, f)
 
 function _calculateCardClasses (title) {
   const classes = ['card']
@@ -43,38 +29,60 @@ function _calculateCardClasses (title) {
   return classes.join(' ')
 }
 
-export function cardsHeight () {
-  return `height: calc(72px * ${sortedTitles().length - 1} + 5px + 100%);`
+const _installMap = new Map()
+async function _installComponent (component) {
+  if (!_installMap.has(component)) {
+    _installMap.set(component, import(component.path).then(module => { 
+      customElements.define(component.name, module.default)
+    }))
+  }
+  return _installMap.get(component)
 }
 
-watch(model, () => {
-  const index = sortedTitles().indexOf(model.testing)
-  document.querySelector('main.app').scrollTo({ top: index * 72 + 5, left: 0, behavior: 'smooth' })
-}, 'testing')
+export function selectableLink (catalogPath, courseName, enrolled) {
+  return () => {
+    const classes = []
+    if (courseName) {
+      classes.push('course-link')
+    }
+    if (model.catalogPath === catalogPath && model.courseName === courseName && model.enrolled === enrolled) {
+      classes.push('selected')
+    }
+    return classes.join(' ')
+  }
+}
 
-function sortedTitles () {
-  return Object.keys(model.cards || {}).reverse().map(title => {
-    return { score: getScore(title), title }
-  }).sort((a, b) => {
-    return a.score - b.score
-  }).map(bundle => bundle.title)
+export function cardsOrCourses (cards, courses) {
+  return () => {
+    if (model.courseName) {
+      return cards
+    } else {
+      return courses
+    }
+  }
+}
+
+export function cardsHeight () {
+  return `height: calc(72px * ${sortedTitles().length - 1} + 5px + 100%);`
 }
 
 export function sortedCards () {
   return h`<main>
   ${() => {
     const titles = sortedTitles()
-    console.log(titles)
     return titles.map(title => {
-      const card = model.cards[title]
-      const courseConfig = model.catalog[model.course]
-      return memoizeCard(card, card => h`<${courseConfig.component} 
-        title=${title} 
-        data=${card.data} 
-        ongrade=${ongrade.bind(null, model.course, title)} 
-        onclick=${() => { model.testing = title }}
-        class=${_calculateCardClasses.bind(null, title)}
-      />`)
+      const catalog = model.catalogs[model.catalogPath]
+      const course = catalog.courses[model.courseName]
+      const card = course.cards[title]
+      const component = card.data.component || course.component || catalog.cardComponent
+      _installComponent(component)
+      return _memoizeCard(card, card => h`<${component.name}
+      title=${title} 
+      data=${card.data} 
+      ongrade=${ongrade.bind(null, model.catalogPath, model.courseName, title)} 
+      onclick=${() => { model.testing = title }}
+      class=${_calculateCardClasses.bind(null, title)}
+    />`)
     })
   }}
   </main>`

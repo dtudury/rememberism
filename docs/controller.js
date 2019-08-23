@@ -1,51 +1,17 @@
 /* global fetch */
-import model from './model.js'
-import { ENROLLED, UNENROLLED, ALL } from './constants.js'
-
-async function _setCourse (course) {
-  let location = model.catagory
-  if (course) {
-    location = `${location}/${encodeURIComponent(course)}`
-  }
-  if (document.location !== location) {
-    document.location = location
-    if (course) {
-      document.title = course
-      model.course = course
-      location = `${location}/${encodeURIComponent(course)}`
-      const catalog = await _fetchCatalog()
-      await _installComponent(`./components/${catalog[course].component}.js`)
-      model.cards = await _fetchCourse(`/courses/${catalog[course].json}`)
-      _setTesting(Date.now())
-    } else {
-      document.title = 'Rememberism'
-      model.course = null
-      model.cards = null
-      model.testing = null
-    }
-  }
-}
-
-export function getScore (title) {
-  const courseProgress = model.progress[model.course]
-  const progress = courseProgress && courseProgress[title]
-  if (progress) {
-    if (!progress.due || !progress.start) {
-      return 0
-    } else {
-      return (progress.due - progress.start) / (model.now - progress.start)
-    }
-  }
-  return -1
-}
+import model, { getReferences, getScore, sortedTitles, decodeHash, encodeHash } from './model.js'
+import { watchFunction } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
 
 function _setTesting (now) {
   model.now = now
-  let bestTitle
+  const sorted = sortedTitles()
+  let bestTitle = sorted[0]
   let bestScore
-  Object.keys(model.cards || {}).forEach(title => {
+  sorted.forEach(title => {
     const score = getScore(title)
-    if (score < 1 && (!bestTitle || (score >= 0 && score <= bestScore))) {
+    // set the last unknown card or the first maybe card
+    // (the only time a probably card is set is if it's the first card because there's no non-probably cards)
+    if ((bestScore === undefined || bestScore < 0) && score < 1) {
       bestTitle = title
       bestScore = score
     }
@@ -53,18 +19,105 @@ function _setTesting (now) {
   model.testing = bestTitle
 }
 
-export function beginCourse (course) {
-  return e => _setCourse(course)
+const _fetchMap = new Map()
+async function _fetchJson (path, initialize) {
+  if (!_fetchMap.has(path)) {
+    _fetchMap.set(path, fetch(path).then(res => res.json()).then(obj => {
+      if (initialize) {
+        initialize(obj)
+      }
+      return obj
+    }))
+  }
+  return _fetchMap.get(path)
 }
 
-export function leaveCourse () {
-  _setCourse(null)
+function _installCatalog (catalogPath) {
+  if (catalogPath && !model.catalogs[catalogPath]) {
+    _fetchJson(catalogPath, catalog => {
+      const courses = catalog.courses
+      Object.keys(courses).forEach(courseName => {
+        const cards = courses[courseName].cards
+        Object.keys(cards).forEach(index => {
+          cards[index] = { data: cards[index] } // force this to be an object (strings won't work)
+        })
+      })
+    }).then(catalog => {
+      model.catalogs[catalogPath] = catalog
+    })
+  }
 }
 
-export function ongrade (course, title, isCorrect, e) {
+function _setFromHash () {
+  const { catalogPath, courseName } = decodeHash(document.location.hash)
+  if (catalogPath === model.catalogPath && courseName === model.courseName) {
+    setCourse(catalogPath, courseName, model.enrolled)
+  } else {
+    setCourse(catalogPath, courseName)
+  }
+}
+
+window.addEventListener('load', _setFromHash)
+window.addEventListener('hashchange', _setFromHash)
+_setFromHash()
+
+// install any missing catalogs
+watchFunction(() => {
+  Object.keys(model.progress).forEach(_installCatalog)
+  _installCatalog(model.catalogPath)
+})
+
+// update hash and title based on catalogPath and courseName
+watchFunction(() => {
+  const hash = encodeHash(model.catalogPath, model.courseName)
+  if (document.location.hash !== hash) {
+    document.location.hash = hash
+    const { catalog } = getReferences()
+    const catalogTitle = catalog && catalog.name
+    document.title = model.courseName || catalogTitle || 'Rememberism'
+    _setTesting(Date.now())
+  }
+})
+
+// set default catalogPath and courseName when not set
+watchFunction(() => {
+  if (!model.catalogPath) {
+    Object.keys(model.progress).some(catalogPath => {
+      const catalog = model.progress[catalogPath]
+      if (catalog.courses) {
+        return Object.keys(catalog.courses).some(courseName => {
+          if (courseName) {
+            setCourse(catalogPath, courseName)
+            return true
+          }
+          return false
+        })
+      }
+      return false
+    })
+  }
+})
+
+// set default card
+watchFunction(() => {
+  if (!model.testing) {
+    _setTesting(Date.now())
+  }
+})
+
+export async function setCourse (catalogPath, courseName, enrolled) {
+  model.catalogPath = catalogPath
+  model.courseName = courseName
+  model.enrolled = enrolled
+}
+
+export function ongrade (catalogPath, courseName, title, isCorrect, e) {
   e.stopPropagation()
-  const courseProgress = model.progress[course] = (model.progress[course] || {})
-  const progress = courseProgress[title] = (courseProgress[title] || {})
+  const catalog = model.progress[catalogPath] = (model.progress[catalogPath] || {})
+  const courses = catalog.courses = (catalog.courses || {})
+  const course = courses[courseName] = (courses[courseName] || {})
+  const cards = course.cards = (course.cards || {})
+  const progress = cards[title] = (cards[title] || {})
   const now = Date.now()
   if (isCorrect) {
     progress.start = progress.start || now
@@ -77,62 +130,3 @@ export function ongrade (course, title, isCorrect, e) {
   }
   _setTesting(now)
 }
-
-export function memoize (map, v, f) {
-  if (!map.has(v)) {
-    map.set(v, f(v))
-  }
-  return map.get(v)
-}
-const _courseMap = new Map()
-export const memoizeCourse = (v, f) => memoize(_courseMap, v, f)
-
-const _fetchMap = new Map()
-async function _fetchJson (path) {
-  if (!_fetchMap.has(path)) {
-    _fetchMap.set(path, fetch(path).then(res => res.json()))
-  }
-  return _fetchMap.get(path)
-}
-const _fetchCourseMap = new Map()
-async function _fetchCourse (path) {
-  const courseData = await _fetchJson(path)
-  if (!_fetchCourseMap.has(path)) {
-    Object.keys(courseData).forEach(index => {
-      courseData[index] = {data:courseData[index]}
-    })
-    _fetchCourseMap.set(path, courseData)
-  }
-  return _fetchCourseMap.get(path)
-}
-const _fetchCatalog = () => _fetchJson('./catalog.json')
-
-const _installMap = new Map()
-async function _installComponent (path) {
-  if (!_installMap.has(path)) {
-    _installMap.set(path, import(path))
-  }
-  return _installMap.get(path)
-}
-
-const _readHash = () => {
-  const slashIndex = document.location.hash.indexOf('/')
-  let preSlash = document.location.hash
-  let postSlash
-  if (slashIndex !== -1) {
-    preSlash = document.location.hash.substring(0, slashIndex)
-    postSlash = document.location.hash.substring(slashIndex + 1)
-  }
-  if (preSlash === UNENROLLED) {
-    model.catagory = UNENROLLED
-  } else if (preSlash === ALL) {
-    model.catagory = ALL
-  } else {
-    model.catagory = ENROLLED
-  }
-  _setCourse(postSlash && decodeURIComponent(postSlash))
-}
-
-window.addEventListener('load', _readHash)
-window.addEventListener('hashchange', _readHash)
-_fetchCatalog().then(catalog => { model.catalog = catalog })
