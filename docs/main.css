@@ -21,6 +21,7 @@ header.app {
   grid-template-columns: repeat(3, min-content);
   column-gap: 8px;
   padding: 8px;
+  z-index: 2;
 }
 
 header.app .hamburger {
@@ -47,6 +48,7 @@ nav.app {
   grid-row: 2/3;
   padding: 16px 16px 16px 0;
   overflow: auto;
+  z-index: 1;
 }
 
 nav.app a {
@@ -72,7 +74,6 @@ main.app {
   grid-row: 2/3;
   overflow: auto;
   background-color: whitesmoke;
-  z-index: -1;
 }
 
 @media (max-width: 632px) {
