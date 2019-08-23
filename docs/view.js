@@ -39,6 +39,10 @@ async function _installComponent (component) {
   return _installMap.get(component)
 }
 
+export function toggleMenu() {
+  document.body.classList.toggle('showMenu')
+}
+
 export function selectableLink (catalogPath, courseName, enrolled) {
   return () => {
     const classes = []

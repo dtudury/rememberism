@@ -41,19 +41,22 @@ header.app h1 {
 }
 
 nav.app {
+  position: relative;
+  background: white;
   grid-column: 1/2;
   grid-row: 2/3;
   padding: 16px 16px 16px 0;
+  overflow: auto;
 }
 
 nav.app a {
   display: block;
   text-decoration: none;
   font-size: 14px;
-  padding: 4px;
   color: dimgray;
-  padding: 4px 4px 4px 16px;
-  border-radius: 0 12px 12px 0;
+  padding: 8px 16px;
+  border-radius: 0 16px 16px 0;
+  cursor: pointer;
 }
 
 nav.app a.selected {
@@ -61,7 +64,7 @@ nav.app a.selected {
 }
 
 nav.app .course-link {
-  padding: 4px 4px 4px 32px;
+  padding-left: 32px;
 }
 
 main.app {
@@ -69,6 +72,22 @@ main.app {
   grid-row: 2/3;
   overflow: auto;
   background-color: whitesmoke;
+  z-index: -1;
+}
+
+@media (max-width: 632px) {
+  nav.app {
+    grid-column: 1/4;
+    left: -100%;
+  }
+
+  .showMenu nav.app {
+    left: 0;
+  }
+
+  main.app {
+    grid-column: 1/4;
+  }
 }
 
 section.cards header {

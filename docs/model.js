@@ -57,7 +57,7 @@ export function getScore (title) {
 export function sortedTitles () {
   const catalog = model.catalogs[model.catalogPath]
   if (catalog && catalog.courses && model.courseName) {
-    const course = catalog.courses[model.courseName]
+    const course = catalog.courses[model.courseName] || {}
     const bundles = Object.keys(course.cards || {}).reverse().map(title => {
       return { score: getScore(title), title }
     }).sort((a, b) => {

@@ -37,7 +37,7 @@ function _installCatalog (catalogPath) {
     _fetchJson(catalogPath, catalog => {
       const courses = catalog.courses
       Object.keys(courses).forEach(courseName => {
-        const cards = courses[courseName].cards
+        const cards = courses[courseName].cards || {}
         Object.keys(cards).forEach(index => {
           cards[index] = { data: cards[index] } // force this to be an object (strings won't work)
         })
