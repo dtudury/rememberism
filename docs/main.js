@@ -55,11 +55,14 @@ ${() => {
 </main>
 
 <footer class="app">
-  Copyright Info
+  Copyright © 2019 David Tudury
 </footer>
 `)
 
 watchFunction(() => {
   const index = sortedTitles().indexOf(model.testing)
-  document.querySelector('main.app').scrollTo({ top: index * 72 + 5, left: 0, behavior: 'smooth' })
+  const mainApp = document.querySelector('main.app')
+  const top = index * 72 + 5
+  const behavior = Math.abs(top - mainApp.scrollTop) < mainApp.offsetHeight ? 'smooth' : 'auto'
+  mainApp.scrollTo({ top, behavior })
 })
