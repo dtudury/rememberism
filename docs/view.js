@@ -1,7 +1,7 @@
 /* global customElements */
 
 import model, { sortedTitles, getScore } from './model.js'
-import { h } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
+import { h, watchFunction } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
 import { ongrade } from './controller.js'
 
 function _memoize (map, v, f) {
@@ -32,14 +32,24 @@ function _calculateCardClasses (title) {
 const _installMap = new Map()
 async function _installComponent (component) {
   if (!_installMap.has(component)) {
-    _installMap.set(component, import(component.path).then(module => { 
+    _installMap.set(component, import(component.path).then(module => {
       customElements.define(component.name, module.default)
     }))
   }
   return _installMap.get(component)
 }
 
-export function toggleMenu() {
+watchFunction(() => {
+  const index = sortedTitles().indexOf(model.testing)
+  const mainApp = document.querySelector('main.app')
+  if (mainApp) {
+    const top = index * 72 + 5
+    const behavior = Math.abs(top - mainApp.scrollTop) < mainApp.offsetHeight ? 'smooth' : 'auto'
+    mainApp.scrollTo({ top, behavior })
+  }
+})
+
+export function toggleMenu () {
   document.body.classList.toggle('showMenu')
 }
 
@@ -73,21 +83,39 @@ export function cardsHeight () {
 export function sortedCards () {
   return h`<main>
   ${() => {
-    const titles = sortedTitles()
-    return titles.map(title => {
-      const catalog = model.catalogs[model.catalogPath]
-      const course = catalog.courses[model.courseName]
-      const card = course.cards[title]
-      const component = card.data.component || course.component || catalog.cardComponent
-      _installComponent(component)
-      return _memoizeCard(card, card => h`<${component.name}
-      title=${title} 
-      data=${card.data} 
-      ongrade=${ongrade.bind(null, model.catalogPath, model.courseName, title)} 
-      onclick=${() => { model.testing = title }}
-      class=${_calculateCardClasses.bind(null, title)}
-    />`)
-    })
-  }}
+      const titles = sortedTitles()
+      let previous = -1
+      const unknown = []
+      const maybe = []
+      const probably = []
+      titles.forEach(title => {
+        const catalog = model.catalogs[model.catalogPath]
+        const course = catalog.courses[model.courseName]
+        const card = course.cards[title]
+        const score = getScore(title)
+        const component = card.data.component || course.component || catalog.cardComponent
+        _installComponent(component)
+        let cardDescription = _memoizeCard(card, card => h`<${component.name}
+          title=${title} 
+          data=${card.data} 
+          ongrade=${ongrade.bind(null, model.catalogPath, model.courseName, title)} 
+          onclick=${() => { model.testing = title }}
+          class=${_calculateCardClasses.bind(null, title)}
+        />`)
+        if (score < 0) {
+          unknown.push(cardDescription)
+        } else if (score < 1) {
+          maybe.push(cardDescription)
+        } else {
+          probably.push(cardDescription)
+        }
+      })
+      return h`
+      <section class="unknown"><header>unknown</header> ${unknown}</section>
+      <section class="maybe"><header>maybe</header> ${maybe}</section>
+      <section class="probably"><header>probably</header> ${probably}</section>
+      `
+      // return [unknown, maybe, probably]
+    }}
   </main>`
 }

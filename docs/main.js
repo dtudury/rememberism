@@ -1,5 +1,5 @@
-import { h, render, watchFunction } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
-import model, { sortedTitles } from './model.js'
+import { h, render } from 'https://unpkg.com/horseless/dist/horseless.esm.js'
+import model from './model.js'
 import { cardsOrCourses, selectableLink, sortedCards, cardsHeight, toggleMenu } from './view.js'
 import { setCourse } from './controller.js'
 
@@ -58,11 +58,3 @@ ${() => {
   Copyright © 2019 David Tudury
 </footer>
 `)
-
-watchFunction(() => {
-  const index = sortedTitles().indexOf(model.testing)
-  const mainApp = document.querySelector('main.app')
-  const top = index * 72 + 5
-  const behavior = Math.abs(top - mainApp.scrollTop) < mainApp.offsetHeight ? 'smooth' : 'auto'
-  mainApp.scrollTo({ top, behavior })
-})

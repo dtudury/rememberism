@@ -94,9 +94,7 @@ main.app {
 section.cards header {
   position: sticky;
   top: 0;
-  background: white;
   padding: 16px 16px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 section.cards header .backbutton {
@@ -115,6 +113,36 @@ section.cards .card {
   height: 56px;
   box-sizing: border-box;
   overflow: hidden;
+}
+
+section.cards main section {
+  width: fit-content;
+  margin: 16px;
+  border-radius: 8px;
+}
+
+section.probably {
+  color: honeydew;
+  border: solid 4px honeydew;
+}
+
+section.cards main section header {
+  background: whitesmoke;
+  border-bottom: dashed;
+}
+
+section.maybe {
+  color: white;
+  border: solid 4px white;
+}
+
+section.unknown {
+  color: ivory;
+  border: solid 4px ivory;
+}
+
+section.cards .card {
+  color: black;
 }
 
 section.cards .card:hover {

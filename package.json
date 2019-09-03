@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/dtudury/rememberism#readme",
   "devDependencies": {
+    "firebase-tools": "^7.3.0",
     "serve": "^11.1.0",
     "standard": "^14.0.0"
   }
