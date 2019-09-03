@@ -33,6 +33,7 @@ export default class extends HTMLElement {
             font-size: 64px;
             padding: 32px 16px;
             margin: 0;
+            font-family: "Comic Sans MS", cursive, sans-serif;
           }
           hr {
             border: none;
